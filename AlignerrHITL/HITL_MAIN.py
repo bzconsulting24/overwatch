@@ -1,9 +1,6 @@
 import os
 import shutil
-import subprocess
-import requests
 import opensmile
-import sys
 # port analyze_speech_pattern
 from speechRythm_torch import analyze_speech_pattern
 from SpeechPattern import flag_sensitive_words
@@ -13,6 +10,8 @@ from soundAnalysis_torch import detect_keyboard_sounds
 from BehaviorAnalysis import interpret_behavior
 # from pdfCompile import extract_even_frames_with_timestamps, save_frames_to_pdf_and_cleanup
 from Openface_Analysis import runOpenface, analyze_behavior
+from videoDL import download_video
+from audioextract import extract_audio
 
 os.system('cls')
 os.environ["OPENCV_FFMPEG_READ_ATTEMPTS"] = "20000"  # Increase attempts to read video frames
@@ -21,113 +20,6 @@ def clear_output_folder(folder_path):
     if os.path.exists(folder_path):
         shutil.rmtree(folder_path)
     os.makedirs(folder_path, exist_ok=True)
-
-## ---Download Video---
-def download_video(url, save_path, target_fps=10):
-    # ensure output folder exists
-    os.makedirs(os.path.dirname(save_path), exist_ok=True)
-
-    # 1) Download the original
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
-    resp = requests.get(url, headers=headers, stream=True)
-    resp.raise_for_status()
-    with open(save_path, "wb") as f:
-        for chunk in resp.iter_content(chunk_size=1024*1024):
-            f.write(chunk)
-    print(f"Video downloaded to: {save_path}")
-
-    # 2) If no re-encode requested, return the original
-    if not target_fps:
-        return save_path
-
-    # 3) Probe duration (in seconds)
-    probe = [
-        "ffprobe", "-v", "error",
-        "-show_entries", "format=duration",
-        "-of", "default=noprint_wrappers=1:nokey=1",
-        save_path
-    ]
-    try:
-        out = subprocess.check_output(probe, stderr=subprocess.DEVNULL)
-        duration = float(out.strip())
-    except Exception:
-        print("[Warning] Could not get duration. Skipping re-encode.")
-        return save_path
-
-    # 4) Build ffmpeg command with progress
-    base, ext   = os.path.splitext(save_path)
-    lowfps_path = f"{base}_{target_fps}fps{ext}"
-    cmd = [
-        "ffmpeg", "-y",
-        "-hide_banner", "-loglevel", "error",
-        "-i", save_path,
-        "-vf", f"fps={target_fps}",
-        "-c:v", "libx264", "-crf", "18", "-preset", "veryfast",
-        "-progress", "pipe:1", "-nostats",
-        lowfps_path
-    ]
-    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
-
-    # 5) Read progress and draw a 50-char bar
-    while True:
-        line = proc.stdout.readline()
-        if not line:
-            break
-        if line.startswith("out_time_ms="):
-            raw = line.split("=", 1)[1].strip()
-            try:
-                out_ms = int(raw)
-            except ValueError:
-                continue
-            percent = min(out_ms / (duration * 1000) * 100, 100)
-            blocks  = int(percent * 50 // 100)
-            bar     = "█" * blocks
-            sys.stdout.write(f"\rRe-encoding: {percent:5.1f}% |{bar:<50}|")
-            sys.stdout.flush()
-
-    proc.wait()
-    print()  # newline
-    print(f"Re-encoded at {target_fps} FPS: {lowfps_path}")
-    return lowfps_path
-
-## ---EXTRACT AUDIO---
-
-def extract_audio(video_path, audio_path):
-    # 1. probe for audio
-    probe_cmd = [
-        "ffprobe", "-v", "error",
-        "-select_streams", "a:0",
-        "-show_entries", "stream=codec_type",
-        "-of", "default=noprint_wrappers=1:nokey=1",
-        video_path
-    ]
-    try:
-        has_audio = subprocess.check_output(probe_cmd, stderr=subprocess.DEVNULL)
-    except subprocess.CalledProcessError:
-        has_audio = b""
-    if not has_audio.strip():
-        print("[Info] No audio stream found. Skipping extraction.")
-        return None
-
-    # 2. extract audio to WAV
-    cmd = [
-        "ffmpeg", "-y", "-i", video_path,
-        "-vn", "-acodec", "pcm_s16le",
-        "-ar", "16000", "-ac", "1",
-        audio_path
-    ]
-    result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    if result.returncode != 0:
-        print("[Warning!] Audio extraction failed:")
-        print(result.stderr.decode())
-        return None
-
-    if not os.path.exists(audio_path):
-        print("[Warning!] Audio file not found after ffmpeg run.")
-        return None
-
-    print(f"[check] Audio saved to: {audio_path}")
-    return audio_path
 
     
 if __name__ == "__main__":
@@ -170,8 +62,7 @@ if features is not None:
 else:
     print("Skipping behavior analysis (no audio features).")
     behavior_summary = []
-
-
+##  Run Openface
 runOpenface(video_path, output_dir)
 Openface_summary = analyze_behavior(video_path, output_dir)
 
