@@ -1,15 +1,14 @@
 {
     "files.readonlyInclude": {
         "c:\\Users\\julius\\Documents\\vscode codes\\alignerr_peeps.py": true,
-        "c:\\Users\\julius\\Documents\\vscode codes\\AlignerrHITL\\videoDL.py": true,
         "c:\\Users\\julius\\Documents\\vscode codes\\AlignerrHITL\\speechRythm.py": true,
-        "c:\\Users\\julius\\Documents\\vscode codes\\AlignerrHITL\\Openface_Analysis.py": true,
         "c:\\Users\\julius\\Documents\\vscode codes\\AlignerrHITL\\speechRythm_torch.py": true,
         "c:\\Users\\julius\\Documents\\vscode codes\\AlignerrHITL\\SpeechPattern.py": true,
         "c:\\Users\\julius\\Documents\\vscode codes\\AlignerrHITL\\soundAnalysis.py": true,
         "c:\\Users\\julius\\Documents\\vscode codes\\AlignerrHITL\\pdfCompile.py": true,
         "c:\\Users\\julius\\Documents\\vscode codes\\AlignerrHITL\\AudioTranscript.py": true,
         "c:\\Users\\julius\\Documents\\vscode codes\\AlignerrHITL\\audioextract.py": true,
-        "c:\\Users\\julius\\Documents\\vscode codes\\AlignerrHITL\\BehaviorAnalysis.py": true
+        "c:\\Users\\julius\\Documents\\vscode codes\\AlignerrHITL\\BehaviorAnalysis.py": true,
+        "c:\\Users\\julius\\Documents\\vscode codes\\AlignerrHITL\\videoDL.py": true
     }
 }

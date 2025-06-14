@@ -1,88 +1,72 @@
+import os
+import subprocess
 import sys
-import io
-from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtCore    import QObject, QThread, pyqtSignal
-from hitl_app        import Ui_BehaviorAnalysis   # your UI class
-from hitl_runner     import run_hitl_analysis     # your existing logic
+import requests
 
-class EmittingStream(io.TextIOBase):
-    def __init__(self, write_fn, orig_stream):
-        super().__init__()
-        self.write_fn    = write_fn
-        self.orig_stream = orig_stream
 
-    def write(self, text):
-        # print to real console
-        self.orig_stream.write(text)
-        self.orig_stream.flush()
-        # append to GUI text box
-        self.write_fn(text)
+def download_video(url, save_path, target_fps=10):
+    # ensure output folder exists
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
-    def flush(self):
-        self.orig_stream.flush()
+    # 1) Download the original
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+    resp = requests.get(url, headers=headers, stream=True)
+    resp.raise_for_status()
+    with open(save_path, "wb") as f:
+        for chunk in resp.iter_content(chunk_size=1024*1024):
+            f.write(chunk)
+    print(f"Video downloaded to: {save_path}")
 
-class Worker(QObject):
-    progress = pyqtSignal(int)
-    finished = pyqtSignal()
-    error    = pyqtSignal(str)
+    # 2) If no re-encode requested, return the original
+    if not target_fps:
+        return save_path
 
-    def __init__(self, url):
-        super().__init__()
-        self.url = url
+    # 3) Probe duration (in seconds)
+    probe = [
+        "ffprobe", "-v", "error",
+        "-show_entries", "format=duration",
+        "-of", "default=noprint_wrappers=1:nokey=1",
+        save_path
+    ]
+    try:
+        out = subprocess.check_output(probe, stderr=subprocess.DEVNULL)
+        duration = float(out.strip())
+    except Exception:
+        print("[Warning] Could not get duration. Skipping re-encode.")
+        return save_path
 
-    def run(self):
-        try:
-            self.progress.emit(0)
-            print("Starting analysis...")
-            run_hitl_analysis(self.url)
-            self.progress.emit(100)
-            print("Analysis complete.")
-            self.finished.emit()
-        except Exception as e:
-            self.error.emit(str(e))
+    # 4) Build ffmpeg command with progress
+    base, ext   = os.path.splitext(save_path)
+    lowfps_path = f"{base}_{target_fps}fps{ext}"
+    cmd = [
+        "ffmpeg", "-y",
+        "-hide_banner", "-loglevel", "error",
+        "-i", save_path,
+        "-vf", f"fps={target_fps}",
+        "-c:v", "libx264", "-crf", "18", "-preset", "veryfast",
+        "-progress", "pipe:1", "-nostats",
+        lowfps_path
+    ]
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
 
-class MyApp(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.ui = Ui_BehaviorAnalysis()
-        self.ui.setupUi(self)
+    # 5) Read progress and draw a 50-char bar
+    while True:
+        line = proc.stdout.readline()
+        if not line:
+            break
+        if line.startswith("out_time_ms="):
+            raw = line.split("=", 1)[1].strip()
+            try:
+                out_ms = int(raw)
+            except ValueError:
+                continue
+            percent = min(out_ms / (duration * 1000) * 100, 100)
+            blocks  = int(percent * 50 // 100)
+            bar     = "█" * blocks
+            sys.stdout.write(f"\rRe-encoding: {percent:5.1f}% |{bar:<50}|")
+            sys.stdout.flush()
 
-        # redirect stdout/stderr to both console and GUI
-        orig_out = sys.stdout
-        orig_err = sys.stderr
-        sys.stdout = EmittingStream(self.ui.result_box.append, orig_out)
-        sys.stderr = EmittingStream(self.ui.result_box.append, orig_err)
-
-        self.ui.btn_run.clicked.connect(self.run_from_gui)
-
-    def run_from_gui(self):
-        self.ui.result_box.clear()
-        self.ui.progressBar.setValue(0)
-
-        url = self.ui.lineEdit_url.text().strip()
-        if not url:
-            print("Please enter a URL or file path.")
-            return
-
-        self.thread = QThread()
-        self.worker = Worker(url)
-        self.worker.moveToThread(self.thread)
-
-        self.thread.started.connect(self.worker.run)
-        self.worker.progress.connect(self.ui.progressBar.setValue)
-        self.worker.finished.connect(self.thread.quit)
-        self.worker.error.connect(self.show_error)
-        self.worker.finished.connect(self.worker.deleteLater)
-        self.thread.finished.connect(self.thread.deleteLater)
-
-        self.thread.start()
-
-    def show_error(self, message):
-        print(f"Error: {message}")
-        self.ui.progressBar.setValue(0)
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = MyApp()
-    window.show()
-    sys.exit(app.exec_())
+    proc.wait()
+    print()  # newline
+    print(f"Re-encoded at {target_fps} FPS: {lowfps_path}")
+    return lowfps_path
