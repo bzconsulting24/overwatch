@@ -54,17 +54,16 @@ def download_video(url, save_path, target_fps=10):
         line = proc.stdout.readline()
         if not line:
             break
-        if line.startswith("out_time_ms="):
-            raw = line.split("=", 1)[1].strip()
-            try:
-                out_ms = int(raw)
-            except ValueError:
-                continue
-            percent = min(out_ms / (duration * 1000) * 100, 100)
+        if line.startswith("out_time_us="):
+            raw   = line.split("=", 1)[1].strip()
+            out_us = int(raw)
+            # now scale by microseconds
+            percent = min(out_us / (duration * 1_000_000) * 100, 100)
             blocks  = int(percent * 50 // 100)
             bar     = "█" * blocks
             sys.stdout.write(f"\rRe-encoding: {percent:5.1f}% |{bar:<50}|")
             sys.stdout.flush()
+
 
     proc.wait()
     print()  # newline

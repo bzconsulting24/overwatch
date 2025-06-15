@@ -6,15 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>849</width>
-    <height>804</height>
+    <width>840</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
+  </property>
+  <property name="unifiedTitleAndToolBarOnMac">
+   <bool>false</bool>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="urlLabel">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -32,15 +38,42 @@
     <property name="textFormat">
      <enum>Qt::MarkdownText</enum>
     </property>
+    <property name="wordWrap">
+     <bool>false</bool>
+    </property>
+    <property name="openExternalLinks">
+     <bool>false</bool>
+    </property>
    </widget>
    <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
-      <x>39</x>
-      <y>189</y>
-      <width>751</width>
-      <height>561</height>
+      <x>20</x>
+      <y>190</y>
+      <width>801</width>
+      <height>581</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>1</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::DefaultContextMenu</enum>
+    </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QAbstractScrollArea::AdjustToContents</enum>
     </property>
     <property name="widgetResizable">
      <bool>true</bool>
@@ -50,8 +83,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>749</width>
-       <height>559</height>
+       <width>799</width>
+       <height>579</height>
       </rect>
      </property>
      <widget class="QTextEdit" name="result_box">
@@ -59,8 +92,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>751</width>
-        <height>1061</height>
+        <width>801</width>
+        <height>571</height>
        </rect>
       </property>
       <property name="maximumSize">
@@ -75,14 +108,42 @@
         <pointsize>11</pointsize>
        </font>
       </property>
+      <property name="toolTipDuration">
+       <number>-2</number>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
+      </property>
+      <property name="lineWrapMode">
+       <enum>QTextEdit::NoWrap</enum>
+      </property>
+      <property name="lineWrapColumnOrWidth">
+       <number>80</number>
+      </property>
       <property name="readOnly">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
       <property name="markdown">
        <string/>
       </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Consolas'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="overwriteMode">
+       <bool>false</bool>
+      </property>
       <property name="placeholderText">
-       <string>Result</string>
+       <string>Result Will display Here</string>
       </property>
      </widget>
     </widget>
@@ -102,11 +163,17 @@
       <pointsize>10</pointsize>
      </font>
     </property>
+    <property name="text">
+     <string/>
+    </property>
     <property name="placeholderText">
-     <string>https://www.inserturlhere.com/path/to/video.mp4</string>
+     <string>https://www.samplevideolink.com/path/to/video.mp4</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btn_run">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>710</x>
@@ -123,8 +190,14 @@
       <bold>true</bold>
      </font>
     </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
     <property name="text">
      <string>Run</string>
+    </property>
+    <property name="default">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QProgressBar" name="progressBar">
@@ -149,7 +222,7 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="progressLabel">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -218,7 +291,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>849</width>
+     <width>840</width>
      <height>21</height>
     </rect>
    </property>
@@ -226,5 +299,70 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>btn_clr</sender>
+   <signal>clicked()</signal>
+   <receiver>lineEdit_url</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>767</x>
+     <y>52</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>410</x>
+     <y>106</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_clr</sender>
+   <signal>clicked()</signal>
+   <receiver>result_box</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>767</x>
+     <y>52</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>415</x>
+     <y>741</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_clr</sender>
+   <signal>clicked()</signal>
+   <receiver>progressBar</receiver>
+   <slot>reset()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>767</x>
+     <y>52</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>162</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit_url</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>btn_run</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>410</x>
+     <y>106</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>747</x>
+     <y>142</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
