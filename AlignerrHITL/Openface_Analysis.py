@@ -105,9 +105,11 @@ def runOpenface(video_path, output_dir):
                     print("\n[Warning] Progress exceeded 100%. Terminating.")
                     proc.terminate()
                     break
-
+                
+                GREEN = '\033[92m'
+                RESET = '\033[0m'
                 blocks = percent * 50 // 100
-                bar = "█" * blocks
+                bar = GREEN + "█" * blocks
                 sys.stdout.write(f"\r{frame_count}/{expected_max} frames  {percent:3}% |{bar:<50}|")
                 sys.stdout.flush()
 

@@ -114,9 +114,9 @@ if __name__ == "__main__":
     use_url = True  # Set to False to use a local video file
     video_url = input("Enter video URL:")
     local_video_path = ""
-    download_target = "/Users/julius/Downloads/video.mp4"
+    download_target = "\\\\tsclient\\Desktop\\output\\video.mp4"
 
-    output_dir = "/Users/julius/Downloads/frames"
+    output_dir = "\\\\tsclient\\Desktop\\output\\frames"
     audio_path = os.path.join(output_dir, "temp_audio.wav")
     transcript_path = os.path.join(output_dir, "transcript.txt")
 
