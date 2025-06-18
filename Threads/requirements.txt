@@ -1,0 +1,12 @@
+# Requirements for alignerr_peeps.py
+opencv-python
+numpy
+Pillow
+openai-whisper
+requests
+librosa
+opensmile
+torch
+torchaudio
+panns-inference
+PyPDF2
