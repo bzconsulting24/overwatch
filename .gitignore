@@ -87,7 +87,6 @@ ipython_config.py
 
 \Threads/
 alignerr_peeps.py
-panns_data/Cnn14_mAP=0.431.pth
 
 
 # pyenv
@@ -203,4 +202,5 @@ cython_debug/
 
 # Response reference file
 response_reference.txtThreads/panns_data/*.pth
+Threads/panns_data/*.pth
 Threads/panns_data/*.pth
