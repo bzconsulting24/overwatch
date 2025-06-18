@@ -86,6 +86,8 @@ ipython_config.py
 
 alignerr_peeps.py
 
+C:\Users\julius\Documents\vscode codes\Threads
+
 
 # pyenv
 #   For a library or package, you might want to ignore these files since the code is
@@ -197,3 +199,6 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# Response reference file
+response_reference.txt

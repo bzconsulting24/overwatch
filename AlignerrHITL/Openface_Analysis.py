@@ -109,7 +109,7 @@ def runOpenface(video_path, output_dir):
                 GREEN = '\033[92m'
                 RESET = '\033[0m'
                 blocks = percent * 50 // 100
-                bar = GREEN + "█" * blocks
+                bar = GREEN + "█" * blocks + RESET
                 sys.stdout.write(f"\r{frame_count}/{expected_max} frames  {percent:3}% |{bar:<50}|")
                 sys.stdout.flush()
 
