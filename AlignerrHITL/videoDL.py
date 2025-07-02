@@ -3,12 +3,10 @@ import subprocess
 import sys
 import requests
 
-
-def download_video(url, save_path, target_fps=10):
-    # ensure output folder exists
+def download_video(url, save_path, target_fps=10, percent_download=40):
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
-    # 1) Download the original
+    # Download original video
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
     resp = requests.get(url, headers=headers, stream=True)
     resp.raise_for_status()
@@ -17,11 +15,7 @@ def download_video(url, save_path, target_fps=10):
             f.write(chunk)
     print(f"Video downloaded to: {save_path}")
 
-    # 2) If no re-encode requested, return the original
-    if not target_fps:
-        return save_path
-
-    # 3) Probe duration (in seconds)
+    # Probe original duration
     probe = [
         "ffprobe", "-v", "error",
         "-show_entries", "format=duration",
@@ -35,12 +29,16 @@ def download_video(url, save_path, target_fps=10):
         print("[Warning] Could not get duration. Skipping re-encode.")
         return save_path
 
-    # 4) Build ffmpeg command with progress
-    base, ext   = os.path.splitext(save_path)
+    # Calculate partial duration (e.g., 40%)
+    partial_duration = duration * percent_download / 100
+
+    # Re-encode only partial duration
+    base, ext = os.path.splitext(save_path)
     lowfps_path = f"{base}_{target_fps}fps{ext}"
     cmd = [
         "ffmpeg", "-y",
         "-hide_banner", "-loglevel", "error",
+        "-ss", "0", "-t", f"{partial_duration:.2f}",
         "-i", save_path,
         "-vf", f"fps={target_fps}",
         "-c:v", "libx264", "-crf", "18", "-preset", "veryfast",
@@ -49,29 +47,24 @@ def download_video(url, save_path, target_fps=10):
     ]
     proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
 
-    # 5) Read progress and draw a 50-char bar
+    # Progress bar
     while True:
         line = proc.stdout.readline()
         if not line:
             break
         if line.startswith("out_time_us="):
-            raw   = line.split("=", 1)[1].strip()
+            raw = line.split("=", 1)[1].strip()
             try:
                 out_us = int(raw)
-                # now scale by microseconds
-                GREEN = '\033[92m'
-                RESET = '\033[0m'
-                percent = min(out_us / (duration * 1_000_000) * 100, 100)
-                blocks  = int(percent * 50 // 100)
-                bar     = GREEN + "█" * blocks + RESET
-                if sys.stdout:
-                    sys.stdout.write(f"\rRe-encoding: {percent:5.1f}% |{bar:<50}|")
-                    sys.stdout.flush()
+                percent = min(out_us / (partial_duration * 1_000_000) * 100, 100)
+                blocks = int(percent * 50 // 100)
+                bar = '\033[92m' + "█" * blocks + '\033[0m'
+                sys.stdout.write(f"\rRe-encoding: {percent:5.1f}% |{bar:<50}|")
+                sys.stdout.flush()
             except ValueError:
-                pass # skip if n/a or invalid
-
+                pass
 
     proc.wait()
     print()  # newline
-    print(f"Re-encoded at {target_fps} FPS: {lowfps_path}")
+    print(f"Re-encoded at {target_fps} FPS (first {percent_download}%): {lowfps_path}")
     return lowfps_path

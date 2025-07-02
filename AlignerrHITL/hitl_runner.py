@@ -8,7 +8,7 @@ from audioextract import extract_audio
 from speechRythm_torch import analyze_speech_pattern
 from SpeechPattern import flag_sensitive_words
 from AudioTranscript import transcribe_audio
-from soundAnalysis_torch import detect_keyboard_sounds
+from soundAnalysis import detect_keyboard_sounds
 from BehaviorAnalysis import interpret_behavior
 from Openface_Analysis import runOpenface, analyze_behavior
 
