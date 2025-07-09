@@ -3,11 +3,13 @@ import shutil
 import opensmile
 from threading import Thread
 
-from videoDL import download_video
-from audioextract import extract_audio
+# from videoDL import download_video
+# from audioextract import extract_audio
+from AudioVideoTreadingDL import download_video_audio
 from speechRythm_torch import analyze_speech_pattern
 from SpeechPattern import flag_sensitive_words
-from AudioTranscript import transcribe_audio
+# from AudioTranscript import transcribe_audio
+from audioTranscriptWithSpeakers import transcribe_and_diarize
 from soundAnalysis import detect_keyboard_sounds
 from BehaviorAnalysis import interpret_behavior
 from Openface_Analysis import runOpenface, analyze_behavior
@@ -19,7 +21,7 @@ class HITLRunner:
         self.video_path      = os.path.join(self.output_dir, "video.mp4")
         self.audio_path      = os.path.join(self.output_dir, "temp_audio.wav")
         self.transcript_path = os.path.join(self.output_dir, "transcript.txt")
-        self.reference_path  = r"C:\Users\julius\Documents\vscode codes\AlignerrHITL\response_reference.txt"
+        self.reference_path  = r"C:\Users\julius\Documents\vscode codes\behaviorAnalysis\response_reference.txt"
 
     def clear_output_folder(self):
         if os.path.exists(self.output_dir):
@@ -34,13 +36,17 @@ class HITLRunner:
         self.clear_output_folder()
         if progress_callback: progress_callback(10)
 
-        if status_callback: status_callback("Downloading video...")
-        video_file = download_video(video_url, self.video_path)
-        if progress_callback: progress_callback(20)
+        # if status_callback: status_callback("Downloading video...")
+        # video_file = download_video(video_url, self.video_path)
+        # if progress_callback: progress_callback(20)
 
-        if status_callback: status_callback("Extracting audio...")
-        audio_file = extract_audio(video_file, self.audio_path)
-        if progress_callback: progress_callback(30)
+        # if status_callback: status_callback("Extracting audio...")
+        # audio_file = extract_audio(video_file, self.audio_path)
+        # if progress_callback: progress_callback(30)
+        
+        if status_callback: status_callback("Downloading video and extracting audio...")
+        video_file, audio_file = download_video_audio(video_url, self.output_dir)
+        if progress_callback: progress_callback(25)
 
         if status_callback: status_callback("Extracting speech features...")
         smile = opensmile.Smile(
@@ -67,9 +73,38 @@ class HITLRunner:
             if progress_callback: progress_callback(70)
 
         def transcribe_task():
-            if status_callback: status_callback("Transcribing audio...")
-            transcribe_audio(audio_file, self.transcript_path)
-            if progress_callback: progress_callback(80)
+            try:
+                if status_callback: status_callback("Transcribing audio...")
+                transcript_text, _ = transcribe_and_diarize(audio_file, self.transcript_path)
+
+                with open(self.transcript_path, "w", encoding="utf-8") as f:
+                    f.write(transcript_text)
+
+                print("✅ Diarized transcript saved.")
+                if progress_callback: progress_callback(80)
+
+            except ValueError as e:
+                print(f"⚠️ Diarization failed: {e}")
+                print("🔁 Falling back to Whisper-only transcript...")
+
+                import whisper
+                model = whisper.load_model("base", device="cuda")
+                result = model.transcribe(audio_file)
+
+                transcript_lines = [f"[{seg['start']:.2f}s - {seg['end']:.2f}s] [UNKNOWN] {seg['text']}" for seg in result["segments"]]
+
+                with open(self.transcript_path, "w", encoding="utf-8") as f:
+                    f.write("### FALLBACK: Whisper-only transcript\n\n")
+                    for line in transcript_lines:
+                        f.write(line + "\n")
+
+                print("✅ Whisper-only transcript saved.")
+                if progress_callback: progress_callback(80)
+
+            except Exception as e:
+                print(f"❌ Transcription error: {e}")
+
+
 
         t1 = Thread(target=run_openface_task)
         t2 = Thread(target=transcribe_task)
