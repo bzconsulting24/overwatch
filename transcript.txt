@@ -1,0 +1,36 @@
+[00:00.000] Speaker 1: I'm zara i'm an ai developed by a liner and i'll be conducting your interview today the session is being recorded let's start with the first topic could you explain what infrastructure as code is and compare some popular tools used in.
+[00:16.000] Speaker 2: Ic girlfriend to a structure called.
+[00:28.800] Speaker 1: Infrastructure is code or i a c refers to managing and provisioning infrastructure through code instead of manual processes this ensures consistency speed and reduces risk of human error could.
+[00:43.600] Speaker 2: You try to give me i haven't heard of park so quickly try to provide me more information maybe yes to to learn. or maybe i'll try to google it or a kind of a friend or something.
+[01:08.100] Speaker 1: Hair form is mainly declarative meaning you define the desired and state of your infrastructure and it handles the steps to achieve that state ansible can be both declarative and imperative with ansible you can provide step-by-step instructions to configure your infrastructure or describe the final desired state terraform focuses on building infrastructure like networks servers and databases it's great when you want to manage infrastructure across multiple cloud providers ansible on the other hand is often used for configuration management and application deployment it's quite flexible and good for configuring surgeries after they are provisioned you might choose terraform when you want a clear declarative infrastructure definition that can be applied across different providers you might pick ansible when you need to configure software or update systems after they've been.
+[01:58.900] Speaker 2: Provisioned so let's try to put it in this way so you mention tara for terraform right solterra phone also to complete cookie also aws or maybe or are they in the same topic or not.
+[02:28.500] Speaker 1: Yes that's correct terraform is cloud agnostic so you can use it to manage infrastructure across multiple cloud providers or even on-premises environments that flexibility is one of its strength especially if you're working with hybrid or multi-cloud.
+[02:43.400] Speaker 2: Strategies yeah but that was not my question so my question was whether to your mission terraform so what other platforms or cloud apps are the same as terraform so could be a w a s or a simple google cloud i just i just need to know that was the the names for dimension what's a terraform.
+[03:24.700] Speaker 1: Absolutely besides aws terraform supports many other cloud platforms for example google cloud platform microsoft azure and even on-premise solutions like vmware or openstack it also works with specialized services like uber netease or databases you can manage almost any infrastructure resource with terraform as long as there's a provider for.
+[03:47.700] Speaker 2: It okay but telephone is for free or itself easter's or or or a cold sore.
+[03:58.200] Speaker 1: Something doterra form has an open-source version that is free to use hashicorp the company behind terraform also offers an enterprise version that includes additional features like collaboration tools governance and support but the core open-source version is free and widely.
+[04:22.000] Speaker 2: Used okay so just to understand so terraform used to manage everything example always to humanity could you could you play me the car so i can so we can have fun with your databases or what other so we can all see what comes up.
+[04:57.100] Speaker 1: Yes terraform can manage a wide range of resources beyond servers and databases you can also use it for networking components like load balancers subnets and firewalls it can manage dns records cloud storage buckets and even more advanced services like kubernetes clusters monitoring tools and identity management systems essentially if there's a terraform provider for it you can manage it with.
+[05:22.800] Speaker 2: Terraform okay so what others platforms besides their forms there are in the market.
+Pause 1.00s at 00:06.000
+Pause 4.40s at 00:16.600
+Pause 4.20s at 00:24.600
+Pause 0.90s at 00:42.200
+Pause 1.20s at 00:56.000
+Stutter 'to' at 00:57.200
+Pause 5.20s at 01:02.900
+Pause 1.00s at 01:59.500
+Pause 1.40s at 02:04.700
+Pause 6.30s at 02:22.200
+Pause 1.60s at 02:44.300
+Pause 2.40s at 03:06.200
+Stutter 'the' at 03:10.600
+Pause 10.20s at 03:14.500
+Pause 1.40s at 03:49.400
+Stutter 'or' at 03:55.300
+Stutter 'or' at 03:55.700
+Pause 6.40s at 03:58.700
+Pause 1.10s at 04:22.500
+Pause 1.40s at 04:24.700
+Pause 2.90s at 04:54.200
+Pause 1.00s at 05:23.400

@@ -9,7 +9,8 @@ from AudioVideoTreadingDL import download_video_audio
 from speechRythm_torch import analyze_speech_pattern
 from SpeechPattern import flag_sensitive_words
 # from AudioTranscript import transcribe_audio
-from audioTranscriptWithSpeakers import transcribe_and_diarize
+# from audioTranscriptWithSpeakers import transcribe_and_diarize
+from google_transcribe import transcribe_and_diarize
 from soundAnalysis import detect_keyboard_sounds
 from BehaviorAnalysis import interpret_behavior
 from Openface_Analysis import runOpenface, analyze_behavior
@@ -75,11 +76,8 @@ class HITLRunner:
         def transcribe_task():
             try:
                 if status_callback: status_callback("Transcribing audio...")
+                # this writes self.transcript_path itself
                 transcript_text, _ = transcribe_and_diarize(audio_file, self.transcript_path)
-
-                with open(self.transcript_path, "w", encoding="utf-8") as f:
-                    f.write(transcript_text)
-
                 print("✅ Diarized transcript saved.")
                 if progress_callback: progress_callback(80)
 
@@ -91,7 +89,10 @@ class HITLRunner:
                 model = whisper.load_model("base", device="cuda")
                 result = model.transcribe(audio_file)
 
-                transcript_lines = [f"[{seg['start']:.2f}s - {seg['end']:.2f}s] [UNKNOWN] {seg['text']}" for seg in result["segments"]]
+                transcript_lines = [
+                    f"[{seg['start']:.2f}s - {seg['end']:.2f}s] [UNKNOWN] {seg['text']}"
+                    for seg in result["segments"]
+                ]
 
                 with open(self.transcript_path, "w", encoding="utf-8") as f:
                     f.write("### FALLBACK: Whisper-only transcript\n\n")
@@ -103,9 +104,8 @@ class HITLRunner:
 
             except Exception as e:
                 print(f"❌ Transcription error: {e}")
-
-
-
+                
+                
         t1 = Thread(target=run_openface_task)
         t2 = Thread(target=transcribe_task)
         t1.start()
