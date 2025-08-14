@@ -14,7 +14,7 @@ def clear_output_folder(folder_path):
 
 def download_video(url, save_path):
     headers = {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
     }
     response = requests.get(url, headers=headers, stream=True)
     if response.status_code == 200:
@@ -26,7 +26,7 @@ def download_video(url, save_path):
     else:
         raise Exception(f"Download failed: HTTP {response.status_code}")
 
-def extract_even_frames_with_timestamps(video_path, output_folder, num_frames=100, resize_width=640, resize_height=360):
+def extract_even_frames_with_timestamps(video_path, output_folder, num_frames=240, resize_width=640, resize_height=360):
     cap = cv2.VideoCapture(video_path)
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     fps = cap.get(cv2.CAP_PROP_FPS)
@@ -114,9 +114,9 @@ if __name__ == "__main__":
     use_url = True  # Set to False to use a local video file
     video_url = input("Enter video URL:")
     local_video_path = ""
-    download_target = "\\\\tsclient\\Desktop\\output\\video.mp4"
+    download_target = "C:\\Users\\julius\\Downloads\\Live Coding\\temp_video.mp4"
 
-    output_dir = "\\\\tsclient\\Desktop\\output\\frames"
+    output_dir = "C:\\Users\\julius\\Downloads\\Live Coding"
     audio_path = os.path.join(output_dir, "temp_audio.wav")
     transcript_path = os.path.join(output_dir, "transcript.txt")
 
@@ -140,3 +140,4 @@ if __name__ == "__main__":
         os.remove(download_target)
 
     print("Temporary audio and video file deleted.")
+

@@ -1,6 +1,6 @@
 from difflib import SequenceMatcher
 
-def flag_sensitive_words(transcript_path, reference_path, threshold=0.85, window_size=8):
+def flag_sensitive_words(transcript_path, reference_path, threshold=0.75, window_size=8): 
     print("Checking transcript for LLM-like phrasing...")
     flagged_lines = []
 
@@ -39,7 +39,7 @@ def flag_sensitive_words(transcript_path, reference_path, threshold=0.85, window
             if count > 0:
                 output_lines.append(f"  \"{phrase}\": {count} occurrence(s)")
     else:
-        output_lines.append("[check] No Gemini-style phrases found.")
+        output_lines.append("[check] No Script-like phrases found.")
 
     print("\n".join(output_lines))
     return output_lines

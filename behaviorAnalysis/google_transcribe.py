@@ -1,18 +1,15 @@
-# audioTranscriptWithSpeakers.py
 import os
 from google.oauth2 import service_account
 from google.cloud import storage, speech
 
 # ─── CONFIG ─────────────────────────────────────────────────────────────────────
-# Set these to match your GCS bucket and service-account JSON
 BUCKET_NAME   = "audiodiarize"
 KEY_FILE_PATH = r"C:\Users\julius\Documents\vscode codes\behaviorAnalysis\soy-lore-465001-s6-e153c4da9d23.json"
 
-# Optional: map speaker IDs to names
+# Optional static names for other tags
 SPEAKER_MAP = {
-    1: "Zara",
-    2: "Guest",
-    # add more if needed
+    # 2: "Guest",
+    # add more if you know them
 }
 
 # ─── HELPERS ────────────────────────────────────────────────────────────────────
@@ -55,37 +52,58 @@ def _format_time(tp):
     return f"{m:02d}:{s:06.3f}"
 
 def _format_conversation(words):
+    # build dynamic speaker map so first speaker = Zara
+    seen = []
+    for w in words:
+        if w.speaker_tag not in seen:
+            seen.append(w.speaker_tag)
+    dynamic_map = { seen[0]: "Zara" }
+    dynamic_map.update(SPEAKER_MAP)
+
     lines = []
-    tag = words[0].speaker_tag
-    buf = []
+    tag   = words[0].speaker_tag
+    buf   = []
     start = words[0].start_time
 
     for w in words:
         if w.speaker_tag != tag:
-            name = SPEAKER_MAP.get(tag, f"Speaker {tag}")
+            name = dynamic_map.get(tag, f"Speaker {tag}")
             text = " ".join(buf).capitalize() + "."
             lines.append(f"[{_format_time(start)}] {name}: {text}")
-            buf = []
+            buf   = []
             start = w.start_time
-            tag = w.speaker_tag
+            tag   = w.speaker_tag
         buf.append(w.word)
 
     if buf:
-        name = SPEAKER_MAP.get(tag, f"Speaker {tag}")
+        name = dynamic_map.get(tag, f"Speaker {tag}")
         text = " ".join(buf).capitalize() + "."
         lines.append(f"[{_format_time(start)}] {name}: {text}")
 
     return lines
 
-def _detect_events(words, pause_thresh=0.7):
+def _detect_events(words, pause_thresh=2.0):
     events = []
+
+    # Detect which tag belongs to Zara (first speaker seen)
+    seen = []
+    for w in words:
+        if w.speaker_tag not in seen:
+            seen.append(w.speaker_tag)
+    zara_tag = seen[0]
+
     for prev, curr in zip(words, words[1:]):
-        gap = _get_seconds(curr.start_time) - _get_seconds(prev.end_time)
-        if gap > pause_thresh:
-            events.append(f"Pause {gap:.2f}s at {_format_time(prev.end_time)}")
+        # Only trigger if Zara spoke last and someone else speaks next
+        if prev.speaker_tag == zara_tag and curr.speaker_tag != zara_tag:
+            gap = _get_seconds(curr.start_time) - _get_seconds(prev.end_time)
+            if gap > pause_thresh:
+                events.append(f"Pause {gap:.2f}s after Zara at {_format_time(prev.end_time)}")
+
         if curr.word.lower() == prev.word.lower():
             events.append(f"Stutter '{curr.word}' at {_format_time(curr.start_time)}")
+
     return events
+
 
 # ─── PUBLIC API ──────────────────────────────────────────────────────────────────
 
@@ -94,20 +112,16 @@ def transcribe_and_diarize(audio_path: str, transcript_path: str):
     1) Clears your GCS bucket
     2) Uploads `audio_path`
     3) Runs diarization (2–4 speakers)
-    4) Formats transcript with timestamps and speaker names
-    5) Detects pauses and stutters
-    6) Writes full transcript to `transcript_path`
-
-    Returns (transcript_text, events_list).
+    4) Formats transcript so first speaker = Zara
+    5) Detects pauses & stutters
+    6) Writes to `transcript_path`
     """
-    # 1 & 2
     _clear_bucket()
     uri = _upload_to_gcs(audio_path)
 
-    # 3
     client = _get_speech_client()
-    audio = speech.RecognitionAudio(uri=uri)
-    diar = speech.SpeakerDiarizationConfig(
+    audio  = speech.RecognitionAudio(uri=uri)
+    diar   = speech.SpeakerDiarizationConfig(
         enable_speaker_diarization=True,
         min_speaker_count=2,
         max_speaker_count=4,
@@ -118,23 +132,23 @@ def transcribe_and_diarize(audio_path: str, transcript_path: str):
         language_code="en-US",
         diarization_config=diar,
     )
-    op = client.long_running_recognize(config=config, audio=audio)
-    response = op.result(timeout=600)
-    words = response.results[-1].alternatives[0].words
 
-    # 4 & 5
-    convo  = _format_conversation(words)
+    op       = client.long_running_recognize(config=config, audio=audio)
+    response = op.result(timeout=600)
+    words    = response.results[-1].alternatives[0].words
+
+    convo  = _format_conversation(words)                     # uncomment if you want a conversation in transcript
     events = _detect_events(words)
 
-    # 6
     with open(transcript_path, "w", encoding="utf-8") as f:
-        for line in convo:
-            f.write(line + "\n")
+        for line in convo:                                   # uncomment if you want a conversation in transcript
+            f.write(line + "\n")                             # uncomment if you want a conversation in transcript
         for ev in events:
             f.write(ev + "\n")
 
-    transcript_text = "\n".join(convo + events)
-    return transcript_text, events
+    transcript_text = "\n".join(convo + events)               # uncomment if you want a conversation in transcript
+    transcript_text = "\n".join(events)                         # uncomment if you want events only
+    return transcript_text, events                            # Uncomment if you want both transcript and events
 
 # # ─── EXAMPLE USAGE ───────────────────────────────────────────────────────────────
 # if __name__ == "__main__":

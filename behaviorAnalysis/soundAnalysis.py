@@ -3,6 +3,16 @@ import tensorflow as tf
 import tensorflow_hub as hub
 import librosa
 
+import os
+import shutil
+import tempfile
+
+tfhub_cache = os.path.join(tempfile.gettempdir(), "tfhub_modules")
+shutil.rmtree(tfhub_cache, ignore_errors=True)
+
+
+# you can now use yamnet_model for inference
+
 def detect_keyboard_sounds(audio_path):
     print("Analyzing audio for keyboard sounds...")
     model = hub.load("https://tfhub.dev/google/yamnet/1")
@@ -23,12 +33,12 @@ def detect_keyboard_sounds(audio_path):
     for name in top_classes:
         summary.append(f"  - {name}")
 
-    if "Typing" in top_classes and "Clicking" in top_classes:
+    if "Typing" in top_classes or "Clicking" in top_classes:
         summary.append("[Warning!]  Keyboard typing sounds detected.")
     elif "Clock" in top_classes or "Tick" in top_classes:
         summary.append("[Warning!]  Possible keyboard sounds detected.")
     else:
-        summary.append("[check]  No strong evidence of keyboard typing detected.")
+        summary.append("[check]  No strong evidence of keyboard typing or mouse use detected.")
 
     print("\n".join(summary))
     return summary

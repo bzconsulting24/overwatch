@@ -1,0 +1,27 @@
+{
+    "items": [
+        {
+            "field": "userReadyToLabel",
+            "operator": "equals",
+            "value": "true",
+            "id": 98157
+        },
+        {
+            "field": "severity",
+            "operator": "equals",
+            "value": "high",
+            "id": 99836
+        },
+        {
+            "id": 3,
+            "field": "eventMetadata",
+            "operator": "equals",
+            "value": "assessmentName",
+            "jsonPathFilter": {
+                "path": "assessmentName",
+                "value": "Design+-+3D+Modeling+%26+AutoCAD"
+            }
+        }
+    ],
+    "logicOperator": "and"
+}

@@ -1,0 +1,102 @@
+Robotics
+------
+At its heart
+Here's a breakdown of
+In essence
+Crucial for
+Inherently more precise
+Rarely operate in perfect conditions
+Intuitively makes sense
+Critically important
+Effectively 'simulates'
+Highly susceptible
+Crucially
+Absolutely critical
+Common perception sensors in robotics
+Not just beneficial but
+Rich, multi-dimensional model
+Directly translates to
+Absolutely necessary
+In conclusion
+Paint a richer picture
+Yielding an estimate
+Empowers robots
+Integrated understanding
+Inherently
+Highly reliable
+Explicitly incorporate
+Comprehensive constraint management
+Operational boundaries
+Fundamental principle
+Let's zoom in on
+Effectively achieve
+It's helpful to see
+Key Characteristics and Implications
+Widely used for its robust performance
+Iterative process
+Operational constraints
+Here's why it's necessary and how it helps
+Enhanced State Estimation
+Better Object Recognition
+Improved Decision Making
+Fault Tolerance
+turning raw uncertain sensor data into a coherent model of the world
+extracting relevant features, localizing and mapping, recognizing objects and context, and fusing sensor data
+distinct strengths and weaknesses depending on the situation
+affected by lighting conditions, performance degrades in low light, glare, or shadows
+occlusion and motion blur can struggle with displaced or overlapping objects
+not sensitive to lighting and high spatial resolution
+performance affected by weather, rainfall, or fog that attenuate laser signals
+no single sensor is perfect; combining them allows a robot to compensate for individual weaknesses
+enhances overall perception accuracy and reliability
+commonly used as a foundational algorithm for sensor fusion
+combining information from multiple noisy sensors to produce a more accurate estimate
+prediction step and update step
+motion model projects uncertainty ahead
+incorporates measurements, for example from sensors like lasers or cameras
+weighted based on how reliable each sensor is, more uncertainty equals less weight
+adaptive filters or multiple-model approaches
+adjusting how much it trusts each input using the Kalman gain
+
+
+
+DevOps
+fundamental DevOps practice
+cornerstone of modern software delivery
+revolutionary in its ability
+invaluable for testing
+single source of truth
+tribal knowledge
+In essence,
+Here's a breakdown
+In summary,
+This ensures that
+Here's how it works
+It's crucial for consistency
+This eliminates human error
+Here's a step-by-step breakdown
+virtually eliminates
+systematic process that leverages
+
+
+===
+Stats
+===
+
+
+to determine the approximate sample size for estimating the mean height
+introduce bias into the study and reduce the generalizability of the results
+represent the overall population's height distribution accurately
+this bias can't be corrected just by increasing the sample size
+maintain accuracy and keep the margin of error within acceptable limits
+prioritize efficient sampling methods like stratified sampling
+avoiding overestimation that would unnecessarily inflate sample size
+the calculated confidence interval accurately reflects the uncertainty
+the mean is sensitive to outliers
+providing a more stable measure of central tendency
+structured approach in my perspective
+statistically significant evidence
+a significantly lower defect rate
+brings the data closer to normality
+retain all the data while making the distribution more normal like
+"helps ensure an evidence based and statistically sound decision"
