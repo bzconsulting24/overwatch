@@ -1,0 +1,503 @@
+[
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "ed02fa8e-c370-4c43-9c96-299c9e2ff8ac",
+    "criterion": "The notebook contains a clearly-labelled “Executive Summary” markdown cell of 150–300 words positioned as the first content cell.",
+    "score": 5,
+    "tags": [],
+    "authorType": "MODEL",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "4f808f7e-1515-4c53-afef-4eee9ca57800",
+    "criterion": "The entire notebook is composed of 40–80 cells inclusive (code + markdown).",
+    "score": 5,
+    "tags": [],
+    "authorType": "MODEL",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "6e1a998e-ad74-4af2-b16d-aef3de61fb9e",
+    "criterion": "At least 70 % of heavy numerical computations are vectorised with NumPy (no explicit Python loops), verified by code line count inside each pricing function.",
+    "score": 5,
+    "tags": [],
+    "authorType": "MODEL",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "46d56701-92d0-4446-bf93-4ec78693d315",
+    "criterion": "The framework is calibrated and tested on historical option chains for at least three distinct U.S. single-name equities (e.g., AAPL, MSFT, TSLA).",
+    "score": 5,
+    "tags": [],
+    "authorType": "MODEL",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "19256443-c956-4589-9218-434ff7aff960",
+    "criterion": "Monte-Carlo pricing is validated against a Bermudan Longstaff–Schwartz implementation with prices matching within ±1 % for at-the-money options (S≈K, T≤1 yr).",
+    "score": 5,
+    "tags": [],
+    "authorType": "MODEL",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "4a9a4ec2-4129-4907-93e8-22f64a052fed",
+    "criterion": "The repository includes a tests/ directory with pytest unit tests that provide ≥90 % statement coverage across all helper functions.",
+    "score": 5,
+    "tags": [],
+    "authorType": "MODEL",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "1f3656e0-cfc4-4085-8600-ff3321711522",
+    "criterion": "A reusable VolSurface class (piece-wise constant or SABR) is implemented and used consistently as the volatility input for every pricing method.",
+    "score": 5,
+    "tags": [],
+    "authorType": "MODEL",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "c1d340bb-45e6-4c3f-8a8b-cccb6f70610e",
+    "criterion": "Code profiling is performed with cProfile and a table listing the top 10 most time-consuming functions (including cumulative time) is displayed in the notebook.",
+    "score": 5,
+    "tags": [],
+    "authorType": "MODEL",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "5dd0d664-8ae0-452d-8698-1ea0ad859736",
+    "criterion": "An interactive IPyWidgets panel allows users to modify at least spot price, volatility, and interest rate and automatically updates all comparison plots.",
+    "score": 5,
+    "tags": [],
+    "authorType": "MODEL",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "ba29b975-485b-4a22-b668-dcfe5a639061",
+    "criterion": "Benchmark results (price, runtime, early-exercise premium) are written to a CSV file in a ./results/ directory for reproducibility.",
+    "score": 5,
+    "tags": [],
+    "authorType": "MODEL",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "0dc40e40-afa3-4947-9375-023919fd3b0e",
+    "criterion": "The notebook executes end-to-end in under 5 minutes on a 2.5 GHz, 8 GB RAM machine, demonstrated by a total runtime printout.",
+    "score": 5,
+    "tags": [],
+    "authorType": "MODEL",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "6aa2ed03-27a3-4e3d-9353-9d781d142180",
+    "criterion": "A references section cites at least three peer-reviewed papers or authoritative texts for each implemented pricing methodology.",
+    "score": 5,
+    "tags": [],
+    "authorType": "MODEL",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "1095ca5b-21d5-4654-b4a8-b11d218fc6cd",
+    "criterion": "The codebase passes flake8 with zero E-level errors and fewer than five W-level warnings.",
+    "score": 5,
+    "tags": [],
+    "authorType": "MODEL",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "664d1b9c-ff6d-43b0-be12-34b1ddff33bf",
+    "criterion": "All stochastic simulations set and document a fixed random seed to ensure price reproducibility across runs.",
+    "score": 5,
+    "tags": [],
+    "authorType": "MODEL",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "568b94b3-d672-459c-8858-d75702fd13f3",
+    "criterion": "Builds all option pricing frameworks in a Python notebook (.ipynb) file",
+    "score": 10,
+    "tags": [
+      "Tooling"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "822f72e2-3799-4307-95ed-3cd6a7caa90f",
+    "criterion": "Writes comments throughout the code in a Python notebook",
+    "score": 10,
+    "tags": [
+      "Management preferences"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "24e84e53-aea6-4aa4-860c-cd97a2f8e691",
+    "criterion": "Installs the required dependencies/libraries (numpy, pandas, matplotlib, seaborn, scipy, numba, time, warnings)",
+    "score": 10,
+    "tags": [],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "be20b59c-05b7-462e-bafe-e596ac49fab4",
+    "criterion": "Writes a helper function for each American option pricing used",
+    "score": 10,
+    "tags": [
+      "Management preferences"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "6299eff4-416e-44ce-9f67-af8046102457",
+    "criterion": "Creates heading for each section of code",
+    "score": 5,
+    "tags": [
+      "Management preferences"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "1afb41bf-bd3d-45ae-acb0-b3dd80aa3442",
+    "criterion": "Develops code that implements the Black-Scholes model to price American-style options",
+    "score": 5,
+    "tags": [
+      "Base task prompt"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "85c3e861-fdbe-42ad-b931-9484ebb6cef1",
+    "criterion": "Develops code that implements the binomial tree model to price American-style options",
+    "score": 5,
+    "tags": [
+      "Base task prompt"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "0e7ca174-287a-4256-8f5f-5992f07a54a3",
+    "criterion": "Develops code that implements the trinomial tree model to price American-style options",
+    "score": 5,
+    "tags": [
+      "Base task prompt"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "feca14ea-4d8f-490f-aaad-fb998ccd1366",
+    "criterion": "Develops code that implements the finite difference model to price American-style options",
+    "score": 5,
+    "tags": [
+      "Base task prompt"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "3d61f2d0-68f0-43ef-bbac-c922971c563b",
+    "criterion": "Develops code that implements the Monte Carlo model to price American-style options",
+    "score": 5,
+    "tags": [
+      "Base task prompt"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "e258bbd6-8637-477b-8336-a349036a1e15",
+    "criterion": "Develops code that implements the Analytical Barone Adesi Whaley model to price American-style options",
+    "score": 5,
+    "tags": [
+      "Base task prompt"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "b445b74b-8fcd-4bda-8527-4e88ddc5dfac",
+    "criterion": "Builds a benchmark framework to compare option prices across different methods, including Black-Scholes, Binomial Tree, Trinomial Tree, Finite Difference, Monte Carlo, and the Analytical Barone-Adesi Whaley model",
+    "score": 20,
+    "tags": [
+      "Base task prompt"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "5c8f9fad-3a55-46f4-a7e4-fa8ebc9609a3",
+    "criterion": "Computes the options pricing computational time across different methods, including Black-Scholes, Binomial Tree, Trinomial Tree, Finite Difference, Monte Carlo, and the Analytical Barone-Adesi Whaley model",
+    "score": 20,
+    "tags": [
+      "Base task prompt"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "0b81b967-409d-47fd-8a90-621d47fc5c3e",
+    "criterion": "Performs early exercise premium analysis across American options pricing methods",
+    "score": 5,
+    "tags": [],
+    "authorType": "HUMAN",
+    "required": false,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "bfc69a4d-0367-494c-9ca4-8445a3aabc1e",
+    "criterion": "Performs single-name specific analysis across different American options pricing methods",
+    "score": 5,
+    "tags": [],
+    "authorType": "HUMAN",
+    "required": false,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "ab8b00b9-4c2f-446d-bac6-26aa11994bfe",
+    "criterion": "Analyzes the pricing impact of corporate actions on American options pricing models",
+    "score": 5,
+    "tags": [],
+    "authorType": "HUMAN",
+    "required": false,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "c83e128e-c151-4d0c-8f75-657636524c57",
+    "criterion": "Analyzes the impact of stock borrow costs on American options pricing models",
+    "score": 5,
+    "tags": [],
+    "authorType": "HUMAN",
+    "required": false,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "47501f33-11c6-47f7-a51d-93044b7e6551",
+    "criterion": "Analyzes the skew differences between index and single name options",
+    "score": 5,
+    "tags": [],
+    "authorType": "HUMAN",
+    "required": false,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "134a344f-f444-4cdb-9d29-c6a692b268d5",
+    "criterion": "Performs convergence analysis on the different American options numerical pricing methods",
+    "score": 10,
+    "tags": [
+      "Base task prompt"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "a39cc650-621e-4529-9d81-38598d53bdf2",
+    "criterion": "Analyzes model risk across different volatility levels across different American options pricing models",
+    "score": 5,
+    "tags": [],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "2b535470-e753-4eea-aff1-9eda45eb4046",
+    "criterion": "Analyzes implied volatility surface for single names across different American options pricing models",
+    "score": 5,
+    "tags": [],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "c466b059-59f0-45a9-8515-8bbc1797bfd0",
+    "criterion": "Analyzes sensitivity of options pricing to different risk factors ",
+    "score": 5,
+    "tags": [],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "29fc51bb-059d-497a-b200-2e760eefea35",
+    "criterion": "Plots a chart to compare option prices across different American options pricing methods",
+    "score": 10,
+    "tags": [
+      "Base task prompt",
+      "Management preferences"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "519d1c02-3005-4d65-966d-871916be2d18",
+    "criterion": "Plots a chart to compare computational efficiency of the different American options pricing methods",
+    "score": 10,
+    "tags": [
+      "Base task prompt",
+      "Management preferences"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "e6f7dfc6-e5bc-49f5-9060-c49e12c4a873",
+    "criterion": "Plots convergence plots to compare the different American options pricing methods",
+    "score": 10,
+    "tags": [
+      "Base task prompt",
+      "Management preferences"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "2618b52d-9e53-4520-8e02-ad678afe8916",
+    "criterion": "Plots implied volatility surface for single names across different American options pricing models",
+    "score": 5,
+    "tags": [],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "497ece3b-5621-4337-8b30-0011c631c27b",
+    "criterion": "Provides a summary of key findings",
+    "score": 20,
+    "tags": [
+      "Base task prompt"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "a5fd49ad-3abf-43b5-bb23-a8ca22ef234b",
+    "criterion": "Provides practical recommendations on the most suitable methodology for production use in the context of high-performance trading",
+    "score": 20,
+    "tags": [
+      "Base task prompt"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  }
+]

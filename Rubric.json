@@ -1,0 +1,732 @@
+[
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "c296833a-05ac-464e-9470-93842435cca0",
+    "criterion": "States the purpose of the customer portal is to replace the manual PDF-by-email workflow.",
+    "score": 10,
+    "tags": [
+      "baseline"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "5133bbe5-738b-415e-ae0b-a26fac7f7ee8",
+    "criterion": "States the first version must launch within six weeks.",
+    "score": 10,
+    "tags": [
+      "baseline"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "acd9aa40-3c21-42bd-99fc-50ccd109ce2e",
+    "criterion": "States that the first version must include TOTP-based authentication.",
+    "score": 8,
+    "tags": [
+      "baseline"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "604b7480-4164-4533-b4a6-577220bca991",
+    "criterion": "Specifies in-browser PDF export as part of the initial release.",
+    "score": 8,
+    "tags": [
+      "baseline"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "587635c4-541d-4545-930b-028fd812951a",
+    "criterion": "States that the portal must be fully responsive for mobile and desktop users.",
+    "score": 8,
+    "tags": [
+      "baseline"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "3aad7bae-ad3b-47c6-b732-54d30fb09ae4",
+    "criterion": "States that strict access control is needed so customers can only view their own proposals.",
+    "score": 8,
+    "tags": [
+      "baseline"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "6a8815a9-81c1-4ada-bafd-d7a61fb592ec",
+    "criterion": "Mentions long-term extensibility to support contract signing and payments in the portal.",
+    "score": 8,
+    "tags": [
+      "baseline"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "90aab418-b76c-4637-94e9-e7cda001ac4b",
+    "criterion": "The document mentions technical terms (React, TOTP, PostgreSQL) without providing definitions or explanatory text.",
+    "score": 3,
+    "tags": [
+      "audience"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "c3bdc061-40b2-4586-854b-fbb86f21c90c",
+    "criterion": "The document includes architectural decisions and technical recommendations.",
+    "score": 5,
+    "tags": [
+      "persona"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "31275cae-f437-4f94-a761-ca9ad4619954",
+    "criterion": "The document is under 4 pages in length.",
+    "score": 3,
+    "tags": [
+      "persona"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "13dd3dd3-a257-44bd-8bd4-253d7703fbc1",
+    "criterion": "The document uses bullet points and section headers for organization.",
+    "score": 3,
+    "tags": [
+      "persona"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {
+      "c778628c-8ac6-4404-945c-d9e7e3fcefd3": {
+        "required_item": true
+      }
+    }
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "5286255e-759d-428e-9886-737e1a4eaceb",
+    "criterion": "Highlights risks of the tight six-week deadline.",
+    "score": 5,
+    "tags": [
+      "mgmt_pref"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "1b1e2a22-b788-4d87-b709-76ba3a119e22",
+    "criterion": "Proposes mitigation strategies (limiting Phase 1 scope, fast follows, etc.) to make the six week deadline.",
+    "score": 5,
+    "tags": [
+      "mgmt_pref"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "caca80bb-6b7a-4ad9-a8eb-28b2d189406f",
+    "criterion": "Mentions creating a Slack channel for project discussion and status updates.",
+    "score": 3,
+    "tags": [
+      "mgmt_pref"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "5aeb7f35-22a7-4c52-989c-84b63cd778a4",
+    "criterion": "Mentions the creation of a breakout team with its own daily standups.",
+    "score": 3,
+    "tags": [
+      "mgmt_pref"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "af4d5f15-4742-4eb5-a762-57dfc463267b",
+    "criterion": "The document states that the solution will be a standalone React application.",
+    "score": 2,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "449f77dd-5097-45d7-8897-b2c372e19caa",
+    "criterion": "The document states that the solution will use TOTP-based authentication.",
+    "score": 2,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {
+      "c778628c-8ac6-4404-945c-d9e7e3fcefd3": {
+        "required_item": true
+      }
+    }
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "1bdae73e-da67-49d8-a15e-963e596cbe5d",
+    "criterion": "Document states that the solution will include a responsive design for mobile and desktop.",
+    "score": 2,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {
+      "c778628c-8ac6-4404-945c-d9e7e3fcefd3": {
+        "required_item": true
+      }
+    }
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "2f4a70cb-d9a8-4b82-a6be-fe0aad5e90cb",
+    "criterion": "The document states that the solution will provide PDF export functionality.",
+    "score": 2,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {
+      "c778628c-8ac6-4404-945c-d9e7e3fcefd3": {
+        "required_item": true
+      }
+    }
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "233b9eae-0bdc-4fb1-af20-56de8089d928",
+    "criterion": "The document states that the solution will enforce strict access control so each customer sees only their own proposals.",
+    "score": 2,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "412712e2-1631-49c3-93c8-76f2dc0cb335",
+    "criterion": "The document states that React will be used for the customer portal frontend.",
+    "score": 3,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "e360eb4e-34af-4be5-8322-331a0e115454",
+    "criterion": "The document states that the approach will use server-side rendering (SSR).",
+    "score": 3,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {
+      "c778628c-8ac6-4404-945c-d9e7e3fcefd3": {
+        "required_item": true
+      }
+    }
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "151cd84e-f0cc-4832-b1e6-ab4ac748f988",
+    "criterion": "The document states that React Router v7 will be used for routing and data loading.",
+    "score": 3,
+    "tags": [],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {
+      "c778628c-8ac6-4404-945c-d9e7e3fcefd3": {
+        "required_item": true
+      }
+    }
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "5c50547f-35b1-4198-9d65-790d41b031e3",
+    "criterion": "Specifies PostgreSQL as the data storage backend, with a proposal_access table keyed by user_id and proposal_id.",
+    "score": 8,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "d20ea31e-b201-4c0c-948c-0c4852d260ee",
+    "criterion": "States that REST API is skipped in favor of direct database access for launch simplicity/security.",
+    "score": 8,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "900fbfaa-1442-488e-82ba-0afce3483795",
+    "criterion": "Mentions that session management will use HTTP-only cookies with ~12-hour expiry.",
+    "score": 6,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "c3c2bbba-8c85-4aae-a5b4-54c593baf56b",
+    "criterion": "Mentions in-browser PDF export using browser’s print dialog",
+    "score": 6,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "df56067b-e1f0-4f93-a7e2-39575471dd4b",
+    "criterion": "Mentions use of SST for deployment on AWS.",
+    "score": 6,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "99a86ad9-2cbc-441b-b4fb-3afdcf097d57",
+    "criterion": "Notes recommendations for long-term integration of customer portal into monorepo for code sharing.",
+    "score": 6,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "80532913-0df0-4c32-ab80-ae18862df3a1",
+    "criterion": "The document states that the CI/CD pipeline includes build steps (install, build, lint).",
+    "score": 2,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {
+      "c778628c-8ac6-4404-945c-d9e7e3fcefd3": {
+        "required_item": true
+      }
+    }
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "957c1fe5-a727-4f3b-9ca8-41c4d317f7c6",
+    "criterion": "The document states that the CI/CD pipeline includes test steps (unit tests with Vitest, integration tests with Playwright).",
+    "score": 2,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {
+      "c778628c-8ac6-4404-945c-d9e7e3fcefd3": {
+        "required_item": true
+      }
+    }
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "1450b198-6d9b-48ad-bb88-532e0aa12398",
+    "criterion": "The document states that the CI/CD pipeline includes deployment steps (deploy to staging, manual approval for production).",
+    "score": 2,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {
+      "c778628c-8ac6-4404-945c-d9e7e3fcefd3": {
+        "required_item": true
+      }
+    }
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "eee91630-a9d8-4bd3-9ad2-945feb95196a",
+    "criterion": "The document lists a set of open question.",
+    "score": 4,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {
+      "c778628c-8ac6-4404-945c-d9e7e3fcefd3": {
+        "required_item": true
+      }
+    }
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "a4db5a33-c84a-423e-acbc-9c2e40a653a8",
+    "criterion": "The document lists whether proposal PDFs will be generated by the sales admin system or on demand in the portal as an open question.",
+    "score": 2,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {
+      "c778628c-8ac6-4404-945c-d9e7e3fcefd3": {
+        "required_item": false
+      }
+    }
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "c063b5f7-dd2b-4150-8a17-b58381702b36",
+    "criterion": "The document lists whether the customer portal must manage proposal expiration logic as an open question.",
+    "score": 1,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {
+      "c778628c-8ac6-4404-945c-d9e7e3fcefd3": {
+        "required_item": false
+      }
+    }
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "a40703bd-8cb9-4fc5-b1e6-56a5e50de520",
+    "criterion": "The document lists whether the design of the new proposal is complete as an open question.",
+    "score": 2,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {
+      "c778628c-8ac6-4404-945c-d9e7e3fcefd3": {
+        "required_item": false
+      }
+    }
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "b8136751-9606-429e-b991-94a0c72aef49",
+    "criterion": "The document lists whether an email template exists for authentication emails as an open question.",
+    "score": 2,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {
+      "c778628c-8ac6-4404-945c-d9e7e3fcefd3": {
+        "required_item": false
+      }
+    }
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "6db85540-04be-47fe-b8a2-9fa5072d8a9e",
+    "criterion": "Identifies risks of broken PDF export styling, proposal listing, and UI design complexity.",
+    "score": 4,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "d02f4c19-b433-4d1f-99dd-43447c1e9e9d",
+    "criterion": "Suggests delaying testing and deployment jobs until after launch as a risk mitigation strategy",
+    "score": 4,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "52bb2779-5f82-4f78-bc2c-5ff67bcf3cde",
+    "criterion": "States potential to constrain UI design to the simplest acceptable form for launch.",
+    "score": 4,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "b287ef95-2bd1-4bb0-88ac-358054853f0d",
+    "criterion": "Specifies the deliverable as a Word document (later markdown for repo).",
+    "score": 7,
+    "tags": [
+      "tools"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "749def93-da28-42d7-ab7c-8dcd559f5ee7",
+    "criterion": "References React Router v7 for routing and SSR.",
+    "score": 5,
+    "tags": [
+      "tools"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "591ef2ac-d35e-46ad-ae19-b488f1aa0c0b",
+    "criterion": "References Remix Auth TOTP strategy for authentication.",
+    "score": 5,
+    "tags": [
+      "tools"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "faba512e-d5dc-4d01-9065-2882bdee9a8a",
+    "criterion": "References SST for AWS deployment.",
+    "score": 5,
+    "tags": [
+      "tools"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "8b7d60ee-5da4-4dab-98ec-b46bf2f08e70",
+    "criterion": "References SST Console for CI/CD pipeline.",
+    "score": 5,
+    "tags": [
+      "tools"
+    ],
+    "authorType": "HUMAN",
+    "required": true,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "d259fd00-26df-46e4-96c6-83ca98d824db",
+    "criterion": "Mentions testing tools Vitest and Playwright as part of pipeline.",
+    "score": 2,
+    "tags": [
+      "tools"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "1cf36853-4c3c-4cc9-bcd7-3cf5b13799f3",
+    "criterion": "Includes a Purpose section explaining why the portal is being built.",
+    "score": 6,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "2fea429c-172d-452c-b1a7-1ea540d8ed47",
+    "criterion": "Includes a Goals and Scope section outlining launch goals and long-term vision.",
+    "score": 6,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "659db053-33df-462a-9e72-fdfa4ffc044c",
+    "criterion": "Includes a Functional Requirements section listing detailed technical requirements.",
+    "score": 6,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "859073fd-104b-4fda-8170-aeb33ac9f73a",
+    "criterion": "Includes a High-Level Architecture / Strategy section describing chosen technical approach.",
+    "score": 6,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "f7d5ad01-ab83-47a9-8e03-6e3cacfc4811",
+    "criterion": "Includes an Open Questions section listing unresolved issues",
+    "score": 6,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  },
+  {
+    "__typename": "RubricItemType",
+    "rubricItemId": "b0863dd2-fda8-4224-b37b-7031683edfe4",
+    "criterion": "Includes a Risks and Mitigations section identifying risks and proposing mitigations.",
+    "score": 6,
+    "tags": [
+      "content"
+    ],
+    "authorType": "HUMAN",
+    "required": null,
+    "readOnly": null,
+    "forms": {}
+  }
+]
