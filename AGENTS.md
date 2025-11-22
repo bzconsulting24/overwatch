@@ -2,7 +2,6 @@
 
 ## Project Structure & Module Organization
 - `behaviorAnalysis/`: main PyQt HITL app (`main.py`) plus pipeline orchestrator (`hitl_runner.py`) that downloads media, extracts audio, runs speech/behavior/OpenFace analysis, and writes outputs to `HITLRunner.output_dir` (set this to a writable local folder such as `./out`).
-- `frontend/`: React + TypeScript UI (Vite) that talks to the Python API (`/api/analyze`); see `frontend/README.md`.
 - `Threads/`: experimental audio/alignment utilities (`alignerr_peeps.py`, `data_gen.py`) with its own `requirements.txt`.
 - `VideoFrame_analyer/MainAnalyzer.py`: frame-level analyzer prototype; `Trimmer/trimmer.py`: small trimming helper.
 - Root scripts like `Openface_Analysis.py` and `convert.py` support the pipeline; avoid committing generated media, transcripts, or downloaded model files.
@@ -20,7 +19,6 @@
   from behaviorAnalysis.hitl_runner import HITLRunner
   HITLRunner("./out").run_analysis("<video_url>")
   ```
-- Start the React UI: `cd frontend && npm install && npm run dev` (proxy to `http://localhost:8000/api` by default). Backend: `uvicorn api_server:app --reload` from `behaviorAnalysis/`.
 
 ## Coding Style & Naming Conventions
 - Python: 4-space indents; `snake_case` for functions/vars; `PascalCase` for classes; keep functions small and side-effect aware.

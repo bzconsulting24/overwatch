@@ -14,112 +14,136 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_BehaviorAnalysis(object):
     def setupUi(self, BehaviorAnalysis):
         BehaviorAnalysis.setObjectName("BehaviorAnalysis")
-        BehaviorAnalysis.resize(840, 800)
-        BehaviorAnalysis.setDockOptions(QtWidgets.QMainWindow.AllowNestedDocks|QtWidgets.QMainWindow.AllowTabbedDocks|QtWidgets.QMainWindow.AnimatedDocks)
-        BehaviorAnalysis.setUnifiedTitleAndToolBarOnMac(False)
+        BehaviorAnalysis.resize(960, 760)
+        BehaviorAnalysis.setMinimumSize(QtCore.QSize(800, 640))
         self.centralwidget = QtWidgets.QWidget(BehaviorAnalysis)
         self.centralwidget.setObjectName("centralwidget")
-        self.urlLabel = QtWidgets.QLabel(self.centralwidget)
-        self.urlLabel.setGeometry(QtCore.QRect(30, 30, 171, 31))
-        self.urlLabel.setStyleSheet("font: 75 14pt \"Calibri\";")
-        self.urlLabel.setTextFormat(QtCore.Qt.MarkdownText)
-        self.urlLabel.setWordWrap(False)
-        self.urlLabel.setOpenExternalLinks(False)
-        self.urlLabel.setObjectName("urlLabel")
-        self.scrollArea = QtWidgets.QScrollArea(self.centralwidget)
-        self.scrollArea.setGeometry(QtCore.QRect(20, 190, 801, 581))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(1)
-        sizePolicy.setHeightForWidth(self.scrollArea.sizePolicy().hasHeightForWidth())
-        self.scrollArea.setSizePolicy(sizePolicy)
-        self.scrollArea.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.scrollArea.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
-        self.scrollArea.setAcceptDrops(False)
-        self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.scrollArea.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollArea.setObjectName("scrollArea")
-        self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 799, 579))
-        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-        self.result_box = QtWidgets.QTextEdit(self.scrollAreaWidgetContents)
-        self.result_box.setGeometry(QtCore.QRect(0, 0, 801, 571))
-        self.result_box.setMaximumSize(QtCore.QSize(16777215, 1061))
-        font = QtGui.QFont()
-        font.setFamily("Consolas")
-        font.setPointSize(11)
-        self.result_box.setFont(font)
-        self.result_box.setToolTipDuration(-2)
-        self.result_box.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-        self.result_box.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.result_box.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
-        self.result_box.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
-        self.result_box.setLineWrapColumnOrWidth(80)
-        self.result_box.setReadOnly(False)
-        self.result_box.setMarkdown("")
-        self.result_box.setOverwriteMode(False)
-        self.result_box.setObjectName("result_box")
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        self.lineEdit_url = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_url.setGeometry(QtCore.QRect(30, 70, 761, 31))
-        font = QtGui.QFont()
-        font.setFamily("Consolas")
-        font.setPointSize(10)
-        self.lineEdit_url.setFont(font)
-        self.lineEdit_url.setText("")
-        self.lineEdit_url.setObjectName("lineEdit_url")
-        self.btn_run = QtWidgets.QPushButton(self.centralwidget)
+        self.centralwidget.setStyleSheet("""
+            QWidget#centralwidget { background: #0e1117; color: #e9edf5; }
+            QLabel { color: #c7cfde; }
+            QLineEdit, QTextEdit {
+                background: #121826;
+                border: 1px solid #1f2633;
+                border-radius: 10px;
+                padding: 10px;
+                color: #e9edf5;
+            }
+            QPushButton {
+                border-radius: 10px;
+                padding: 10px 14px;
+                font-weight: 600;
+                color: #0d131c;
+            }
+            QPushButton#primary {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #6df3c5, stop:1 #7bb6ff);
+                color: #0c1118;
+            }
+            QPushButton#ghost {
+                background: transparent;
+                border: 1px solid #2a3040;
+                color: #c7cfde;
+            }
+            QProgressBar {
+                background: #121826;
+                border: 1px solid #1f2633;
+                border-radius: 12px;
+                text-align: center;
+                color: #c7cfde;
+            }
+            QProgressBar::chunk {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #6df3c5, stop:1 #7bb6ff);
+                border-radius: 12px;
+            }
+        """)
+
+        self.mainLayout = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.mainLayout.setContentsMargins(22, 18, 22, 18)
+        self.mainLayout.setSpacing(14)
+
+        self.header = QtWidgets.QLabel(self.centralwidget)
+        header_font = QtGui.QFont("Segoe UI", 18, QtGui.QFont.Bold)
+        self.header.setFont(header_font)
+        self.header.setText("Behavior Analysis")
+        self.mainLayout.addWidget(self.header)
+
+        self.subheader = QtWidgets.QLabel(self.centralwidget)
+        sub_font = QtGui.QFont("Segoe UI", 11)
+        self.subheader.setFont(sub_font)
+        self.subheader.setWordWrap(True)
+        self.subheader.setText("Paste a video URL, run the pipeline, and review transcript, indicators, and behavior cues in one place.")
+        self.mainLayout.addWidget(self.subheader)
+
+        self.inputCard = QtWidgets.QFrame(self.centralwidget)
+        self.inputCard.setObjectName("inputCard")
+        self.inputCard.setStyleSheet("QFrame#inputCard { background:#0b0f19; border:1px solid #1f2633; border-radius:14px; }")
+        inputLayout = QtWidgets.QVBoxLayout(self.inputCard)
+        inputLayout.setContentsMargins(16, 14, 16, 14)
+        inputLayout.setSpacing(10)
+
+        self.urlLabel = QtWidgets.QLabel(self.inputCard)
+        self.urlLabel.setFont(QtGui.QFont("Segoe UI", 10, QtGui.QFont.Bold))
+        self.urlLabel.setText("Video URL")
+        inputLayout.addWidget(self.urlLabel)
+
+        self.lineEdit_url = QtWidgets.QLineEdit(self.inputCard)
+        self.lineEdit_url.setPlaceholderText("https://www.samplevideolink.com/path/to/video.mp4")
+        self.lineEdit_url.textChanged.connect(self.update_btn_run_state)
+        inputLayout.addWidget(self.lineEdit_url)
+
+        buttonsRow = QtWidgets.QHBoxLayout()
+        buttonsRow.setSpacing(8)
+
+        self.btn_run = QtWidgets.QPushButton(self.inputCard)
+        self.btn_run.setObjectName("primary")
+        self.btn_run.setText("Run Analysis")
         self.btn_run.setEnabled(False)
-        self.btn_run.setGeometry(QtCore.QRect(710, 110, 75, 23))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btn_run.setFont(font)
-        self.btn_run.setMouseTracking(True)
-        self.btn_run.setDefault(False)
-        self.btn_run.setObjectName("btn_run")
-        self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
-        self.progressBar.setGeometry(QtCore.QRect(100, 130, 381, 23))
-        font = QtGui.QFont()
-        font.setFamily("Consolas")
-        font.setPointSize(14)
-        self.progressBar.setFont(font)
+        buttonsRow.addWidget(self.btn_run)
+
+        self.btn_stp = QtWidgets.QPushButton("Stop", self.inputCard)
+        self.btn_stp.setObjectName("ghost")
+        buttonsRow.addWidget(self.btn_stp)
+
+        self.btn_clr = QtWidgets.QPushButton("Clear", self.inputCard)
+        self.btn_clr.setObjectName("ghost")
+        buttonsRow.addWidget(self.btn_clr)
+
+        buttonsRow.addStretch()
+        inputLayout.addLayout(buttonsRow)
+
+        self.progressLabel = QtWidgets.QLabel(self.inputCard)
+        self.progressLabel.setFont(QtGui.QFont("Segoe UI", 9, QtGui.QFont.Bold))
+        self.progressLabel.setText("Progress")
+        inputLayout.addWidget(self.progressLabel)
+
+        self.progressBar = QtWidgets.QProgressBar(self.inputCard)
         self.progressBar.setProperty("value", 0)
-        self.progressBar.setInvertedAppearance(False)
-        self.progressBar.setObjectName("progressBar")
-        self.progressLabel = QtWidgets.QLabel(self.centralwidget)
-        self.progressLabel.setGeometry(QtCore.QRect(30, 130, 71, 21))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
-        self.progressLabel.setFont(font)
-        self.progressLabel.setObjectName("progressLabel")
-        self.btn_stp = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_stp.setGeometry(QtCore.QRect(640, 20, 75, 23))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(11)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btn_stp.setFont(font)
-        self.btn_stp.setObjectName("btn_stp")
-        self.btn_clr = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_clr.setGeometry(QtCore.QRect(730, 20, 75, 23))
-        font = QtGui.QFont()
-        font.setFamily("Calibri")
-        font.setPointSize(10)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btn_clr.setFont(font)
-        self.btn_clr.setObjectName("btn_clr")
+        inputLayout.addWidget(self.progressBar)
+
+        self.mainLayout.addWidget(self.inputCard)
+
+        self.resultCard = QtWidgets.QFrame(self.centralwidget)
+        self.resultCard.setObjectName("resultCard")
+        self.resultCard.setStyleSheet("QFrame#resultCard { background:#0b0f19; border:1px solid #1f2633; border-radius:14px; }")
+        resultLayout = QtWidgets.QVBoxLayout(self.resultCard)
+        resultLayout.setContentsMargins(16, 14, 16, 14)
+        resultLayout.setSpacing(10)
+
+        self.resultTitle = QtWidgets.QLabel(self.resultCard)
+        self.resultTitle.setFont(QtGui.QFont("Segoe UI", 11, QtGui.QFont.Bold))
+        self.resultTitle.setText("Transcript & Signals")
+        resultLayout.addWidget(self.resultTitle)
+
+        self.result_box = QtWidgets.QTextEdit(self.resultCard)
+        self.result_box.setAcceptRichText(False)
+        self.result_box.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
+        self.result_box.setFont(QtGui.QFont("Consolas", 11))
+        self.result_box.setPlaceholderText("Result will display here")
+        resultLayout.addWidget(self.result_box)
+
+        self.mainLayout.addWidget(self.resultCard)
+
         BehaviorAnalysis.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(BehaviorAnalysis)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 840, 21))
         self.menubar.setObjectName("menubar")
         BehaviorAnalysis.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(BehaviorAnalysis)
@@ -127,12 +151,8 @@ class Ui_BehaviorAnalysis(object):
         BehaviorAnalysis.setStatusBar(self.statusbar)
 
         self.retranslateUi(BehaviorAnalysis)
-        self.btn_clr.clicked.connect(self.lineEdit_url.clear) # type: ignore
-        self.btn_clr.clicked.connect(self.result_box.clear) # type: ignore
-        self.btn_clr.clicked.connect(self.progressBar.reset) # type: ignore
-        self.lineEdit_url.textChanged.connect(self.update_btn_run_state) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(BehaviorAnalysis)
-        
+
     def update_btn_run_state(self):
         text = self.lineEdit_url.text().strip()
         self.btn_run.setEnabled(bool(text)) # type: ignore 
@@ -143,16 +163,4 @@ class Ui_BehaviorAnalysis(object):
 
     def retranslateUi(self, BehaviorAnalysis):
         _translate = QtCore.QCoreApplication.translate
-        BehaviorAnalysis.setWindowTitle(_translate("BehaviorAnalysis", "MainWindow"))
-        self.urlLabel.setText(_translate("BehaviorAnalysis", "### Insert URL:"))
-        self.result_box.setHtml(_translate("BehaviorAnalysis", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Consolas\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.result_box.setPlaceholderText(_translate("BehaviorAnalysis", "Result Will display Here"))
-        self.lineEdit_url.setPlaceholderText(_translate("BehaviorAnalysis", "https://www.samplevideolink.com/path/to/video.mp4"))
-        self.btn_run.setText(_translate("BehaviorAnalysis", "Run"))
-        self.progressLabel.setText(_translate("BehaviorAnalysis", "Progress:"))
-        self.btn_stp.setText(_translate("BehaviorAnalysis", "Stop"))
-        self.btn_clr.setText(_translate("BehaviorAnalysis", "Clear"))
+        BehaviorAnalysis.setWindowTitle(_translate("BehaviorAnalysis", "Behavior Analysis"))
