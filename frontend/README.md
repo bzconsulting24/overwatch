@@ -17,6 +17,14 @@ uvicorn api_server:app --reload --port 8000
 ```
 If you run the backend on another host/port, set `VITE_API_URL` (e.g., `VITE_API_URL=http://localhost:8000`).
 
+Docker (full stack)
+```bash
+docker-compose up --build
+# frontend: http://localhost:5173
+# backend:  http://localhost:8000
+```
+The Nginx front proxy forwards `/api` to the backend container.
+
 ## API contract (Python backend)
 - `POST /api/analyze` → `{ jobId }`
   - Body: `{ "videoUrl": string, "outputDir"?: string, "modelHint"?: "fast" | "default" | "accurate" }`
