@@ -64,12 +64,14 @@ def download_audio_part(url, audio_path, duration):
         print("Audio saved:", audio_path)
 
 def download_video_audio(url, output_dir, percent_download=40):
+    import shutil
     duration = probe_duration(url)
     partial = duration * percent_download / 100
 
     os.makedirs(output_dir, exist_ok=True)
     video_path = os.path.join(output_dir, "video.mp4")
     audio_path = os.path.join(output_dir, "audio.wav")
+    playback_path = os.path.join(output_dir, "playback.mp4")
 
     t_video = threading.Thread(target=download_video_part, args=(url, video_path, partial))
     t_audio = threading.Thread(target=download_audio_part, args=(url, audio_path, partial))
@@ -78,10 +80,27 @@ def download_video_audio(url, output_dir, percent_download=40):
     t_audio.start()
 
     t_video.join()
+
+    # Convert using GPU acceleration for faster encoding
+    if os.path.exists(video_path):
+        print("Converting with GPU acceleration for playback...")
+        cmd = [
+            "ffmpeg", "-y", "-hide_banner", "-loglevel", "error",
+            "-hwaccel", "cuda",  # GPU acceleration
+            "-i", video_path,
+            "-c:v", "h264_nvenc",  # NVIDIA GPU encoder
+            "-preset", "fast",  # Fast encoding preset
+            "-b:v", "2M",  # 2 Mbps video bitrate
+            "-c:a", "aac", "-b:a", "192k",  # AAC audio
+            playback_path
+        ]
+        subprocess.run(cmd, check=True)
+        print("GPU-accelerated playback video created:", playback_path)
+
     t_audio.join()
 
     print("Both downloads complete.")
-    return video_path, audio_path
+    return video_path, audio_path, playback_path
 
 
 

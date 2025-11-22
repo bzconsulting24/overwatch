@@ -49,13 +49,27 @@ def runOpenface(video_path, output_dir):
     ]
     print("command:", " ".join(command))
 
-    # run subprocess
-    process = subprocess.Popen(
-        command,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True
-    )
+    # run subprocess with hidden window (Windows-specific)
+    import subprocess
+    if os.name == 'nt':  # Windows
+        startupinfo = subprocess.STARTUPINFO()
+        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        startupinfo.wShowWindow = 0  # SW_HIDE
+        process = subprocess.Popen(
+            command,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            startupinfo=startupinfo,
+            creationflags=subprocess.CREATE_NO_WINDOW
+        )
+    else:
+        process = subprocess.Popen(
+            command,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
 
     try:
         while process.poll() is None:
@@ -65,7 +79,7 @@ def runOpenface(video_path, output_dir):
                     frame_count = len(lines) - 1
                     expected_max = max(expected_max, frame_count)
                     percent = int((frame_count / expected_max) * 100) if expected_max else 0
-                    bar = "█" * (percent // 2)
+                    bar = "#" * (percent // 2)
                     sys.stdout.write(f"\r{frame_count}/{expected_max} frames  {percent:3}% |{bar:<50}|")
                     sys.stdout.flush()
             time.sleep(0.5)

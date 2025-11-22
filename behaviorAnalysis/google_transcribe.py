@@ -1,6 +1,21 @@
 import os
-from google.oauth2 import service_account
-from google.cloud import storage, speech
+
+try:
+    from google.oauth2 import service_account
+    from google.cloud import storage, speech
+    GOOGLE_CLOUD_AVAILABLE = True
+except ImportError:
+    GOOGLE_CLOUD_AVAILABLE = False
+    # Define dummy classes/modules so the code doesn't crash on module-level references
+    class DummySpeech:
+        RecognitionAudio = None
+        SpeakerDiarizationConfig = None
+        RecognitionConfig = None
+        class SpeechClient:
+            pass
+    speech = DummySpeech()
+    storage = None
+    service_account = None
 
 # ─── CONFIG ─────────────────────────────────────────────────────────────────────
 BUCKET_NAME   = "audiodiarize"
@@ -116,6 +131,9 @@ def transcribe_and_diarize(audio_path: str, transcript_path: str):
     5) Detects pauses & stutters
     6) Writes to `transcript_path`
     """
+    if not GOOGLE_CLOUD_AVAILABLE:
+        raise ValueError("Google Cloud libraries not installed. Install with: pip install google-cloud-storage google-cloud-speech")
+
     _clear_bucket()
     uri = _upload_to_gcs(audio_path)
 

@@ -21,67 +21,24 @@ def runOpenface(video_path, output_dir):
     if total / skip > 10000:
         skip = math.ceil(total / 10000)
 
-    # 3) how many frames we'll actually process
-    expected_max = min(math.ceil(total / skip), 10000)
+    # 3) how many frames we'll actually process (add 5% buffer for estimation errors)
+    expected_max = min(int(math.ceil(total / skip) * 1.05), 10500)
 
-    # 4) launch FeatureExtraction.exe with visuals
+    # 4) launch FeatureExtraction with tracking result window (the cool visualization!)
     video_name = os.path.splitext(os.path.basename(video_path))[0]
     csv_path = os.path.join(output_dir, f"{video_name}.csv")
     cmd = [
         r"C:\Users\julius\OpenFace_2.2.0\FeatureExtraction.exe",
         "-f",       video_path,
         "-out_dir", output_dir,
-        "-2Dfp", "-3Dfp", "-pose", "-gaze", "-verbose",
-        "-vis-track", "-vis-hog", "-vis-align", "-vis-aus",
+        "-2Dfp", "-3Dfp", "-pose", "-gaze",
+        "-vis-track",  # Show tracking_result window with facial landmarks
         "-frame_skip", str(skip),
     ]
     proc = subprocess.Popen(cmd)
 
-    # 5) wait, then find & re-parent the four windows
+    # 5) tracking_result window will appear with the cool facial analysis visualization
     time.sleep(1)
-    hwnds = {}
-    def _enum(hwnd, _):
-        title = win32gui.GetWindowText(hwnd).lower()
-        if "tracking result" in title:
-            hwnds["parent"] = hwnd
-        elif "hog" in title:
-            hwnds["hog"] = hwnd
-        elif "sim_warp" in title or "sim warp" in title:
-            hwnds["sim"] = hwnd
-        elif "action units" in title:
-            hwnds["aus"] = hwnd
-        return True
-    win32gui.EnumWindows(_enum, None)
-
-    parent = hwnds.get("parent")
-    if parent:
-        for key in ("hog", "sim", "aus"):
-            child = hwnds.get(key)
-            if child:
-                cs = win32gui.GetWindowLong(child, win32con.GWL_STYLE)
-                new_cs = (cs | win32con.WS_CHILD) & ~win32con.WS_POPUP
-                win32gui.SetWindowLong(child, win32con.GWL_STYLE, new_cs)
-                win32gui.SetParent(child, parent)
-
-        # compute quarter-screen region
-        user32 = ctypes.windll.user32
-        screen_w = user32.GetSystemMetrics(0)
-        screen_h = user32.GetSystemMetrics(1)
-        region_w = screen_w // 2
-        region_h = screen_h // 2
-
-        # position parent in top-left quarter
-        win32gui.MoveWindow(parent, 0, 0, region_w, region_h, True)
-
-        # tile children inside parent
-        cw = region_w // 2
-        ch = region_h // 2
-        if "hog" in hwnds:
-            win32gui.MoveWindow(hwnds["hog"], cw, 0, cw, ch, True)
-        if "sim" in hwnds:
-            win32gui.MoveWindow(hwnds["sim"], 0, ch, cw, ch, True)
-        if "aus" in hwnds:
-            win32gui.MoveWindow(hwnds["aus"], cw, ch, cw, ch, True)
 
     # 6) progress loop with timeout and 100% check
     start = time.time()
@@ -109,7 +66,7 @@ def runOpenface(video_path, output_dir):
                 GREEN = '\033[92m'
                 RESET = '\033[0m'
                 blocks = percent * 50 // 100
-                bar = GREEN + "█" * blocks + RESET
+                bar = GREEN + "#" * blocks + RESET
                 sys.stdout.write(f"\r{frame_count}/{expected_max} frames  {percent:3}% |{bar:<50}|")
                 sys.stdout.flush()
 

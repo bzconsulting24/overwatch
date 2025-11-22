@@ -11,7 +11,7 @@ from SpeechPattern import flag_sensitive_words
 # from AudioTranscript import transcribe_audio
 # from audioTranscriptWithSpeakers import transcribe_and_diarize
 from google_transcribe import transcribe_and_diarize
-from soundAnalysis import detect_keyboard_sounds
+from soundAnalysis_torch import detect_keyboard_sounds
 from BehaviorAnalysis import interpret_behavior
 from Openface_Analysis import runOpenface, analyze_behavior
 
@@ -48,7 +48,9 @@ class HITLRunner:
         # if progress_callback: progress_callback(30)
         
         if status_callback: status_callback("Downloading video and extracting audio...")
-        video_file, audio_file = download_video_audio(video_url, self.output_dir)
+        video_file, audio_file, playback_copy = download_video_audio(video_url, self.output_dir)
+        # Playback copy is created during download for immediate GUI playback
+
         if progress_callback: progress_callback(25)
 
         if status_callback: status_callback("Extracting speech features...")
@@ -80,15 +82,17 @@ class HITLRunner:
                 if status_callback: status_callback("Transcribing audio...")
                 # this writes self.transcript_path itself
                 transcript_text, _ = transcribe_and_diarize(audio_file, self.transcript_path)
-                print("✅ Diarized transcript saved.")
+                print("SUCCESS: Diarized transcript saved.")
                 if progress_callback: progress_callback(80)
 
             except ValueError as e:
-                print(f"⚠️ Diarization failed: {e}")
-                print("🔁 Falling back to Whisper-only transcript...")
+                print(f"WARNING: Diarization failed: {e}")
+                print("INFO: Falling back to Whisper-only transcript...")
 
                 import whisper
-                model = whisper.load_model("base", device="cuda")
+                import torch
+                device = "cuda" if torch.cuda.is_available() else "cpu"
+                model = whisper.load_model("base", device=device)
                 result = model.transcribe(audio_file)
 
                 transcript_lines = [
@@ -101,11 +105,11 @@ class HITLRunner:
                     for line in transcript_lines:
                         f.write(line + "\n")
 
-                print("✅ Whisper-only transcript saved.")
+                print("SUCCESS: Whisper-only transcript saved.")
                 if progress_callback: progress_callback(80)
 
             except Exception as e:
-                print(f"❌ Transcription error: {e}")
+                print(f"ERROR: Transcription error: {e}")
                 
                 
         t1 = Thread(target=run_openface_task)

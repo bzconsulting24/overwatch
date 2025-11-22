@@ -14,133 +14,277 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_BehaviorAnalysis(object):
     def setupUi(self, BehaviorAnalysis):
         BehaviorAnalysis.setObjectName("BehaviorAnalysis")
-        BehaviorAnalysis.resize(960, 760)
-        BehaviorAnalysis.setMinimumSize(QtCore.QSize(800, 640))
+        BehaviorAnalysis.resize(1400, 900)
+        BehaviorAnalysis.setMinimumSize(QtCore.QSize(1200, 800))
         self.centralwidget = QtWidgets.QWidget(BehaviorAnalysis)
         self.centralwidget.setObjectName("centralwidget")
         self.centralwidget.setStyleSheet("""
-            QWidget#centralwidget { background: #0e1117; color: #e9edf5; }
-            QLabel { color: #c7cfde; }
-            QLineEdit, QTextEdit {
-                background: #121826;
-                border: 1px solid #1f2633;
-                border-radius: 10px;
-                padding: 10px;
-                color: #e9edf5;
+            QWidget#centralwidget {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                    stop:0 #0a0e1a, stop:0.5 #0d1117, stop:1 #0a0e1a);
+                color: #00ff88;
+            }
+            QLabel {
+                color: #00ff88;
+                font-family: 'Consolas', 'Courier New', monospace;
+            }
+            QLabel#headerLabel {
+                color: #00ff88;
+                font-size: 32px;
+                font-weight: bold;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+            }
+            QLabel#subheaderLabel {
+                color: #00d4ff;
+                font-size: 11px;
+                letter-spacing: 1px;
+            }
+            QLabel#sectionLabel {
+                color: #00ff88;
+                font-size: 13px;
+                font-weight: bold;
+                letter-spacing: 2px;
+                border-left: 3px solid #00ff88;
+                padding-left: 10px;
+            }
+            QLineEdit {
+                background: rgba(0, 20, 40, 0.7);
+                border: 2px solid #00ff88;
+                border-radius: 5px;
+                padding: 12px;
+                color: #00ff88;
+                font-family: 'Consolas', 'Courier New', monospace;
+                font-size: 12px;
+                selection-background-color: #00ff88;
+                selection-color: #000;
+            }
+            QLineEdit:focus {
+                border: 2px solid #00d4ff;
+                background: rgba(0, 212, 255, 0.1);
+            }
+            QTextEdit {
+                background: rgba(0, 10, 20, 0.9);
+                border: 2px solid #00ff88;
+                border-radius: 5px;
+                padding: 15px;
+                color: #00ff88;
+                font-family: 'Consolas', 'Courier New', monospace;
+                font-size: 11px;
+                selection-background-color: #00ff88;
+                selection-color: #000;
             }
             QPushButton {
-                border-radius: 10px;
-                padding: 10px 14px;
-                font-weight: 600;
-                color: #0d131c;
+                border: 2px solid #00ff88;
+                border-radius: 5px;
+                padding: 12px 24px;
+                font-weight: bold;
+                font-size: 13px;
+                font-family: 'Consolas', 'Courier New', monospace;
+                letter-spacing: 2px;
+                color: #00ff88;
+                background: rgba(0, 255, 136, 0.1);
+            }
+            QPushButton:hover {
+                background: rgba(0, 255, 136, 0.3);
+                border: 2px solid #00d4ff;
+                color: #00d4ff;
+            }
+            QPushButton:pressed {
+                background: rgba(0, 255, 136, 0.5);
             }
             QPushButton#primary {
-                background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #6df3c5, stop:1 #7bb6ff);
-                color: #0c1118;
+                background: rgba(0, 255, 136, 0.2);
+                border: 3px solid #00ff88;
+                color: #00ff88;
+            }
+            QPushButton#primary:hover {
+                background: #00ff88;
+                color: #000;
+            }
+            QPushButton#danger {
+                background: rgba(255, 0, 100, 0.1);
+                border: 2px solid #ff0066;
+                color: #ff0066;
+            }
+            QPushButton#danger:hover {
+                background: rgba(255, 0, 100, 0.3);
             }
             QPushButton#ghost {
                 background: transparent;
-                border: 1px solid #2a3040;
-                color: #c7cfde;
+                border: 2px solid #00d4ff;
+                color: #00d4ff;
+            }
+            QPushButton#ghost:hover {
+                background: rgba(0, 212, 255, 0.2);
             }
             QProgressBar {
-                background: #121826;
-                border: 1px solid #1f2633;
-                border-radius: 12px;
+                background: rgba(0, 20, 40, 0.7);
+                border: 2px solid #00ff88;
+                border-radius: 10px;
                 text-align: center;
-                color: #c7cfde;
+                color: #00ff88;
+                font-family: 'Consolas', 'Courier New', monospace;
+                font-weight: bold;
+                font-size: 12px;
+                height: 30px;
             }
             QProgressBar::chunk {
-                background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #6df3c5, stop:1 #7bb6ff);
-                border-radius: 12px;
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                    stop:0 #00ff88, stop:0.5 #00d4ff, stop:1 #00ff88);
+                border-radius: 8px;
+            }
+            QFrame#panel {
+                background: rgba(0, 20, 40, 0.5);
+                border: 2px solid #00ff88;
+                border-radius: 10px;
+            }
+            QStatusBar {
+                background: #0a0e1a;
+                color: #00ff88;
+                border-top: 2px solid #00ff88;
+                font-family: 'Consolas', 'Courier New', monospace;
             }
         """)
 
         self.mainLayout = QtWidgets.QVBoxLayout(self.centralwidget)
-        self.mainLayout.setContentsMargins(22, 18, 22, 18)
-        self.mainLayout.setSpacing(14)
+        self.mainLayout.setContentsMargins(30, 25, 30, 25)
+        self.mainLayout.setSpacing(20)
 
+        # Header section
         self.header = QtWidgets.QLabel(self.centralwidget)
-        header_font = QtGui.QFont("Segoe UI", 18, QtGui.QFont.Bold)
+        self.header.setObjectName("headerLabel")
+        header_font = QtGui.QFont("Consolas", 32, QtGui.QFont.Bold)
         self.header.setFont(header_font)
-        self.header.setText("Behavior Analysis")
+        self.header.setText("◢ OVERWATCH ◣")
+        self.header.setAlignment(QtCore.Qt.AlignCenter)
         self.mainLayout.addWidget(self.header)
 
         self.subheader = QtWidgets.QLabel(self.centralwidget)
-        sub_font = QtGui.QFont("Segoe UI", 11)
+        self.subheader.setObjectName("subheaderLabel")
+        sub_font = QtGui.QFont("Consolas", 11)
         self.subheader.setFont(sub_font)
         self.subheader.setWordWrap(True)
-        self.subheader.setText("Paste a video URL, run the pipeline, and review transcript, indicators, and behavior cues in one place.")
+        self.subheader.setText("BEHAVIORAL INTELLIGENCE ANALYSIS SYSTEM  |  REAL-TIME SURVEILLANCE & PATTERN RECOGNITION")
+        self.subheader.setAlignment(QtCore.Qt.AlignCenter)
         self.mainLayout.addWidget(self.subheader)
 
+        # Add spacing
+        self.mainLayout.addSpacing(10)
+
         self.inputCard = QtWidgets.QFrame(self.centralwidget)
-        self.inputCard.setObjectName("inputCard")
-        self.inputCard.setStyleSheet("QFrame#inputCard { background:#0b0f19; border:1px solid #1f2633; border-radius:14px; }")
+        self.inputCard.setObjectName("panel")
         inputLayout = QtWidgets.QVBoxLayout(self.inputCard)
-        inputLayout.setContentsMargins(16, 14, 16, 14)
-        inputLayout.setSpacing(10)
+        inputLayout.setContentsMargins(25, 20, 25, 20)
+        inputLayout.setSpacing(15)
 
         self.urlLabel = QtWidgets.QLabel(self.inputCard)
-        self.urlLabel.setFont(QtGui.QFont("Segoe UI", 10, QtGui.QFont.Bold))
-        self.urlLabel.setText("Video URL")
+        self.urlLabel.setObjectName("sectionLabel")
+        self.urlLabel.setFont(QtGui.QFont("Consolas", 13, QtGui.QFont.Bold))
+        self.urlLabel.setText("[ TARGET VIDEO SOURCE ]")
         inputLayout.addWidget(self.urlLabel)
 
         self.lineEdit_url = QtWidgets.QLineEdit(self.inputCard)
-        self.lineEdit_url.setPlaceholderText("https://www.samplevideolink.com/path/to/video.mp4")
+        self.lineEdit_url.setPlaceholderText("ENTER VIDEO URL FOR ANALYSIS...")
+        self.lineEdit_url.setMinimumHeight(45)
         self.lineEdit_url.textChanged.connect(self.update_btn_run_state)
         inputLayout.addWidget(self.lineEdit_url)
 
         buttonsRow = QtWidgets.QHBoxLayout()
-        buttonsRow.setSpacing(8)
+        buttonsRow.setSpacing(15)
 
         self.btn_run = QtWidgets.QPushButton(self.inputCard)
         self.btn_run.setObjectName("primary")
-        self.btn_run.setText("Run Analysis")
+        self.btn_run.setText("▶ INITIATE ANALYSIS")
         self.btn_run.setEnabled(False)
+        self.btn_run.setMinimumHeight(50)
         buttonsRow.addWidget(self.btn_run)
 
-        self.btn_stp = QtWidgets.QPushButton("Stop", self.inputCard)
-        self.btn_stp.setObjectName("ghost")
+        self.btn_stp = QtWidgets.QPushButton("■ TERMINATE", self.inputCard)
+        self.btn_stp.setObjectName("danger")
+        self.btn_stp.setMinimumHeight(50)
         buttonsRow.addWidget(self.btn_stp)
 
-        self.btn_clr = QtWidgets.QPushButton("Clear", self.inputCard)
+        self.btn_clr = QtWidgets.QPushButton("◆ RESET", self.inputCard)
         self.btn_clr.setObjectName("ghost")
+        self.btn_clr.setMinimumHeight(50)
         buttonsRow.addWidget(self.btn_clr)
 
-        buttonsRow.addStretch()
         inputLayout.addLayout(buttonsRow)
 
         self.progressLabel = QtWidgets.QLabel(self.inputCard)
-        self.progressLabel.setFont(QtGui.QFont("Segoe UI", 9, QtGui.QFont.Bold))
-        self.progressLabel.setText("Progress")
+        self.progressLabel.setObjectName("sectionLabel")
+        self.progressLabel.setFont(QtGui.QFont("Consolas", 13, QtGui.QFont.Bold))
+        self.progressLabel.setText("[ ANALYSIS PROGRESS ]")
         inputLayout.addWidget(self.progressLabel)
 
         self.progressBar = QtWidgets.QProgressBar(self.inputCard)
         self.progressBar.setProperty("value", 0)
+        self.progressBar.setMinimumHeight(35)
         inputLayout.addWidget(self.progressBar)
 
         self.mainLayout.addWidget(self.inputCard)
 
+        # Create horizontal split layout for video and results
+        self.contentSplitter = QtWidgets.QHBoxLayout()
+        self.contentSplitter.setSpacing(20)
+
+        # Left side: Video display panel
+        self.videoCard = QtWidgets.QFrame(self.centralwidget)
+        self.videoCard.setObjectName("panel")
+        videoLayout = QtWidgets.QVBoxLayout(self.videoCard)
+        videoLayout.setContentsMargins(25, 20, 25, 20)
+        videoLayout.setSpacing(15)
+
+        self.videoTitle = QtWidgets.QLabel(self.videoCard)
+        self.videoTitle.setObjectName("sectionLabel")
+        self.videoTitle.setFont(QtGui.QFont("Consolas", 13, QtGui.QFont.Bold))
+        self.videoTitle.setText("[ LIVE ANALYSIS FEED ]")
+        videoLayout.addWidget(self.videoTitle)
+
+        self.video_display = QtWidgets.QLabel(self.videoCard)
+        self.video_display.setMinimumSize(QtCore.QSize(640, 480))
+        self.video_display.setMaximumSize(QtCore.QSize(800, 600))
+        self.video_display.setStyleSheet("""
+            QLabel {
+                background: #000;
+                border: 2px solid #00ff88;
+                border-radius: 5px;
+                color: #00ff88;
+                font-size: 16px;
+                qproperty-alignment: AlignCenter;
+            }
+        """)
+        self.video_display.setText("◢ AWAITING VIDEO FEED ◣")
+        self.video_display.setScaledContents(False)
+        self.video_display.setAlignment(QtCore.Qt.AlignCenter)
+        videoLayout.addWidget(self.video_display)
+
+        self.contentSplitter.addWidget(self.videoCard, 3)  # 60% width
+
+        # Right side: Results panel (smaller)
         self.resultCard = QtWidgets.QFrame(self.centralwidget)
-        self.resultCard.setObjectName("resultCard")
-        self.resultCard.setStyleSheet("QFrame#resultCard { background:#0b0f19; border:1px solid #1f2633; border-radius:14px; }")
+        self.resultCard.setObjectName("panel")
         resultLayout = QtWidgets.QVBoxLayout(self.resultCard)
-        resultLayout.setContentsMargins(16, 14, 16, 14)
-        resultLayout.setSpacing(10)
+        resultLayout.setContentsMargins(25, 20, 25, 20)
+        resultLayout.setSpacing(15)
 
         self.resultTitle = QtWidgets.QLabel(self.resultCard)
-        self.resultTitle.setFont(QtGui.QFont("Segoe UI", 11, QtGui.QFont.Bold))
-        self.resultTitle.setText("Transcript & Signals")
+        self.resultTitle.setObjectName("sectionLabel")
+        self.resultTitle.setFont(QtGui.QFont("Consolas", 13, QtGui.QFont.Bold))
+        self.resultTitle.setText("[ INTEL REPORT ]")
         resultLayout.addWidget(self.resultTitle)
 
         self.result_box = QtWidgets.QTextEdit(self.resultCard)
         self.result_box.setAcceptRichText(False)
-        self.result_box.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
-        self.result_box.setFont(QtGui.QFont("Consolas", 11))
-        self.result_box.setPlaceholderText("Result will display here")
+        self.result_box.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
+        self.result_box.setFont(QtGui.QFont("Consolas", 10))
+        self.result_box.setPlaceholderText(">>> AWAITING DATA...\n>>> SYSTEM READY")
         resultLayout.addWidget(self.result_box)
 
-        self.mainLayout.addWidget(self.resultCard)
+        self.contentSplitter.addWidget(self.resultCard, 2)  # 40% width
+
+        self.mainLayout.addLayout(self.contentSplitter)
 
         BehaviorAnalysis.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(BehaviorAnalysis)
@@ -163,4 +307,4 @@ class Ui_BehaviorAnalysis(object):
 
     def retranslateUi(self, BehaviorAnalysis):
         _translate = QtCore.QCoreApplication.translate
-        BehaviorAnalysis.setWindowTitle(_translate("BehaviorAnalysis", "Behavior Analysis"))
+        BehaviorAnalysis.setWindowTitle(_translate("BehaviorAnalysis", "OVERWATCH :: Behavioral Intelligence Analysis System"))

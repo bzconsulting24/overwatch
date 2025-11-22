@@ -1,11 +1,18 @@
 import torch
-import torchaudio
+import torchaudio.transforms
+import soundfile as sf
+import numpy as np
 
 def detect_keyboard_sounds(audio_path):
     print("Analyzing audio for keyboard sounds...")
 
-    # 1) Load + resample + mono
-    waveform, sr = torchaudio.load(audio_path)
+    # 1) Load + resample + mono using soundfile directly
+    waveform, sr = sf.read(audio_path)
+    waveform = torch.from_numpy(waveform).float()
+    if len(waveform.shape) > 1:  # If stereo
+        waveform = waveform.T  # Shape: [channels, samples]
+    else:
+        waveform = waveform.unsqueeze(0)  # Shape: [1, samples]
     if sr != 16000:
         waveform = torchaudio.transforms.Resample(sr, 16000)(waveform)
     y = waveform.mean(dim=0)  # shape: [T]
@@ -41,7 +48,9 @@ def detect_keyboard_sounds(audio_path):
 
     # 7) Build the summary
     summary = [f"Detected {num_onsets} onsets ({onsets_per_sec:.2f} per sec)"]
-    if onsets_per_sec > 5:
+    # Keyboard typing is typically 15+ rapid onsets/sec (3-5 keystrokes/sec with multiple harmonics)
+    # Normal speech is 2-8 onsets/sec, so threshold at 15 to avoid false positives
+    if onsets_per_sec > 15:
         summary.append("[Warning!] Possible keyboard typing detected.")
     else:
         summary.append("[check] No strong evidence of typing detected.")

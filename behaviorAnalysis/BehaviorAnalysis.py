@@ -16,7 +16,7 @@ def interpret_behavior(features):
     if energy is not None and energy < -30:
         results.append("[warning] Low vocal energy detected.")
     if jitter is not None and jitter > 0.01:
-        results.append("[warning] Unstable voice — could indicate nervousness.")
+        results.append("[warning] Unstable voice - could indicate nervousness.")
     elif jitter is not None:
         results.append("[check] Vocal delivery seems stable.")
 
