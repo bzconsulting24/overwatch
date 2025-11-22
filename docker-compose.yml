@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: behaviorAnalysis/Dockerfile
+    container_name: overwatch-backend
+    ports:
+      - "8000:8000"
+    environment:
+      # Adjust or add API keys here; set GOOGLE_APPLICATION_CREDENTIALS if required
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./out:/app/out
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: overwatch-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
